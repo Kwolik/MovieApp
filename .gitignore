@@ -1,0 +1,20 @@
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+keystore.txt
+screens/Home.js
+components/*
+app.json
+# macOS
+.DS_Store
+screens/Home.js
+screens/Notifications.js
+
+
