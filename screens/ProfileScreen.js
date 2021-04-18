@@ -1,41 +1,67 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
-import { Button, Title, Paragraph } from "react-native-paper";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Title } from "react-native-paper";
 import mainContext from "../context/mainContext";
 import Firebase from "../Firebase";
 
 export default function ProfileScreen() {
   const styles = StyleSheet.create({
-    inputContainer: {
-      width: "80%",
-      marginBottom: 20,
-    },
     container: {
       flex: 1,
-      alignItems: "center",
+      marginTop: 80,
+      backgroundColor: "black",
       justifyContent: "center",
     },
     box: {
       marginBottom: 20,
     },
+    name: {
+      marginLeft: 30,
+      color: "white",
+    },
+    options: {
+      marginLeft: 50,
+      color: "white",
+    },
+    button: {
+      backgroundColor: "#788eec",
+      marginLeft: 30,
+      marginRight: 30,
+      marginTop: 20,
+      height: 48,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    buttonTitle: {
+      color: "white",
+      fontSize: 16,
+      fontWeight: "bold",
+    },
   });
 
   const { currentUser } = Firebase.auth();
   const { signOutUser } = useContext(mainContext);
-  console.log(currentUser)
+  console.log(currentUser);
 
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Title>{currentUser.uid}</Title>
+        <Text style={styles.name}>Name:</Text>
+        <Title style={styles.options}>Robert Kwoll</Title>
       </View>
       <View style={styles.box}>
-        <Paragraph>{currentUser.email}</Paragraph>
+        <Text style={styles.name}>Email:</Text>
+        <Title style={styles.options}>{currentUser.email}</Title>
       </View>
       <View style={styles.box}>
-      <Button onPress={() => signOutUser()} mode="contained" icon="logout">
-          Wyloguj
-        </Button>
+        <Text style={styles.name}>Lista produkcji:</Text>
+        <Title style={styles.options}>45</Title>
+      </View>
+      <View style={styles.box}>
+        <TouchableOpacity style={styles.button} onPress={() => signOutUser()}>
+          <Text style={styles.buttonTitle}>Wyloguj</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

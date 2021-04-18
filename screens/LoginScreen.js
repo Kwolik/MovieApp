@@ -63,7 +63,7 @@ export default function LoginScreen({ navigation }) {
   const { handleLogin } = useContext(mainContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-//lol
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
