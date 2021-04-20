@@ -2,17 +2,17 @@ import React from "react";
 import { ScrollView } from "react-native";
 import MovieList from "../../components/MovieList";
 
-export default function Pirates() {
-  const [pirates, SetPirates] = React.useState([]);
+export default function Fast() {
+  const [fast, SetFast] = React.useState([]);
 
   const getMovieRequest = async () => {
-    const url = `https://api.themoviedb.org/3/collection/295?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US`;
+    const url = `https://api.themoviedb.org/3/collection/9485?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US`;
 
     const response = await fetch(url);
     const responseJson = await response.json();
 
     if (responseJson.parts) {
-      SetPirates(responseJson.parts);
+      SetFast(responseJson.parts);
     }
   };
 
@@ -20,7 +20,7 @@ export default function Pirates() {
     getMovieRequest();
   }, []);
 
-  const piratesList = pirates.map((movie, index) => (
+  const fastList = fast.map((movie, index) => (
     <MovieList
       key={index}
       title={movie.title}
@@ -31,5 +31,5 @@ export default function Pirates() {
     />
   ));
 
-  return <ScrollView horizontal={true}>{piratesList}</ScrollView>;
+  return <ScrollView horizontal={true}>{fastList}</ScrollView>;
 }

@@ -3,43 +3,33 @@ import { ScrollView } from "react-native";
 import MovieList from "../../components/MovieList";
 
 export default function Runner() {
-  const movies = [
-    {
-      Title: "The Maze Runner",
-      Year: "2014",
-      imdbID: "tt1790864",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjUyNTA3MTAyM15BMl5BanBnXkFtZTgwOTEyMTkyMjE@._V1_SX300.jpg",
-    },
-    {
-      Title: "Maze Runner: The Scorch Trials",
-      Year: "2015",
-      imdbID: "tt4046784",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjE3MDU2NzQyMl5BMl5BanBnXkFtZTgwMzQxMDQ3NTE@._V1_SX300.jpg",
-    },
-    {
-      Title: "Maze Runner: The Death Cure",
-      Year: "2018",
-      imdbID: "tt4500922",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTYyNzk3MDc2NF5BMl5BanBnXkFtZTgwMDk3OTM1NDM@._V1_SX300.jpg",
-    },
-  ];
+  const [runner, SetRunner] = React.useState([]);
 
-  const moviesList = movies.map((movie, index) => (
+  const getMovieRequest = async () => {
+    const url = `https://api.themoviedb.org/3/collection/295130?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US`;
+
+    const response = await fetch(url);
+    const responseJson = await response.json();
+
+    if (responseJson.parts) {
+      SetRunner(responseJson.parts);
+    }
+  };
+
+  React.useEffect(() => {
+    getMovieRequest();
+  }, []);
+
+  const runnerList = runner.map((movie, index) => (
     <MovieList
       key={index}
-      title={movie.Title}
-      year={movie.Year}
-      imdbid={movie.imdbID}
-      type={movie.Type}
-      poster={movie.Poster}
+      title={movie.title}
+      year={movie.release_date ? movie.release_date.substring(0, 4) : "20??"}
+      // imdbid={movie.imdbID}
+      type={"movie"}
+      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
     />
   ));
 
-  return <ScrollView horizontal={true}>{moviesList}</ScrollView>;
+  return <ScrollView horizontal={true}>{runnerList}</ScrollView>;
 }

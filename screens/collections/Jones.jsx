@@ -3,51 +3,33 @@ import { ScrollView } from "react-native";
 import MovieList from "../../components/MovieList";
 
 export default function Jones() {
-  const movies = [
-    {
-      Title: "Indiana Jones and the Raiders of the Lost Ark",
-      Year: "1981",
-      imdbID: "tt0082971",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjA0ODEzMTc1Nl5BMl5BanBnXkFtZTcwODM2MjAxNA@@._V1_SX300.jpg",
-    },
-    {
-      Title: "Indiana Jones and the Last Crusade",
-      Year: "1989",
-      imdbID: "tt0097576",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjNkMzc2N2QtNjVlNS00ZTk5LTg0MTgtODY2MDAwNTMwZjBjXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg",
-    },
-    {
-      Title: "Indiana Jones and the Temple of Doom",
-      Year: "1984",
-      imdbID: "tt0087469",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMGI1NTk2ZWMtMmI0YS00Yzg0LTljMzgtZTg4YjkyY2E5Zjc0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
-    },
-    {
-      Title: "Indiana Jones and the Kingdom of the Crystal Skull",
-      Year: "2008",
-      imdbID: "tt0367882",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BZDIzNzM5MDUtZmI5MC00NGQ5LWFlNzEtYzE3ODIxNDI3ZmNhXkEyXkFqcGdeQXVyNjQ4ODE4MzQ@._V1_SX300.jpg",
-    },
-  ];
+  const [indianaJones, SetIndianaJones] = React.useState([]);
 
-  const moviesList = movies.map((movie, index) => (
+  const getMovieRequest = async () => {
+    const url = `https://api.themoviedb.org/3/collection/84?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US`;
+
+    const response = await fetch(url);
+    const responseJson = await response.json();
+
+    if (responseJson.parts) {
+      SetIndianaJones(responseJson.parts);
+    }
+  };
+
+  React.useEffect(() => {
+    getMovieRequest();
+  }, []);
+
+  const indianaJonesList = indianaJones.map((movie, index) => (
     <MovieList
       key={index}
-      title={movie.Title}
-      year={movie.Year}
-      imdbid={movie.imdbID}
-      type={movie.Type}
-      poster={movie.Poster}
+      title={movie.title}
+      year={movie.release_date ? movie.release_date.substring(0, 4) : "20??"}
+      // imdbid={movie.imdbID}
+      type={"movie"}
+      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
     />
   ));
 
-  return <ScrollView horizontal={true}>{moviesList}</ScrollView>;
+  return <ScrollView horizontal={true}>{indianaJonesList}</ScrollView>;
 }
