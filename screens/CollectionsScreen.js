@@ -1,14 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
-import MovieList from "../components/MovieList";
-import Potter from "./collections/Potter";
-import Jones from "./collections/Jones";
-import Rings from "./collections/Rings";
-import Avengers from "./collections/Avengers";
-import Pirates from "./collections/Pirates";
-import Wick from "./collections/Wick";
-import Runner from "./collections/Runner";
-import Troops from "./collections/Troops";
+import StarWars from "./Collections/StarWars.jsx";
+import Potter from "./Collections/Potter.jsx";
+import Rings from "./Collections/Rings";
+import Jones from "./Collections/Jones";
+import Avengers from "./Collections/Avengers";
+import Pirates from "./Collections/Pirates";
+import Wick from "./Collections/Wick";
+import Runner from "./Collections/Runner";
+import Troops from "./Collections/Troops";
+import Fast from "./Collections/Fast";
 
 export default function CollectionsScreen() {
   const styles = StyleSheet.create({
@@ -25,44 +26,16 @@ export default function CollectionsScreen() {
       color: "white",
       fontWeight: "bold",
       marginTop: 10,
-      marginLeft: 20,
+      marginLeft: 10,
     },
   });
-
-  const [starWars, SetStarWars] = React.useState([]);
-
-  const getMovieRequest = async () => {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US&page=1`;
-
-    const response = await fetch(url);
-    const responseJson = await response.json();
-
-    if (responseJson.Search) {
-      SetStarWars(responseJson.Search);
-    }
-  };
-
-  React.useEffect(() => {
-    getMovieRequest();
-  }, []);
-
-  const moviesList = starWars.map((movie, index) => (
-    <MovieList
-      key={index}
-      title={movie.Title}
-      year={movie.Year}
-      imdbid={movie.imdbID}
-      type={movie.Type}
-      poster={movie.Poster}
-    />
-  ));
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.body}>
           <Text style={styles.name}>Star Wars</Text>
-          <ScrollView horizontal={true}>{moviesList}</ScrollView>
+          <StarWars />
           <Text style={styles.name}>Harry Potter</Text>
           <Potter />
           <Text style={styles.name}>The Lord of the Rings and Hobbit</Text>
@@ -79,6 +52,8 @@ export default function CollectionsScreen() {
           <Runner />
           <Text style={styles.name}>The Troops</Text>
           <Troops />
+          <Text style={styles.name}>Fast and Furious </Text>
+          <Fast />
         </View>
       </View>
     </ScrollView>
