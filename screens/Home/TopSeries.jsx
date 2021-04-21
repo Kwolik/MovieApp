@@ -26,7 +26,7 @@ export default function TopSeries() {
       title={series.name}
       year={series.first_air_date.substring(0, 4)}
       // imdbid={movie.imdbID}
-      type={"TV series"}
+      type={"TV Series"}
       poster={`https://image.tmdb.org/t/p/w342/${series.poster_path}`}
     />
   ));

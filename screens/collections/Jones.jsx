@@ -26,7 +26,7 @@ export default function Jones() {
       title={movie.title}
       year={movie.release_date ? movie.release_date.substring(0, 4) : "20??"}
       // imdbid={movie.imdbID}
-      type={"movie"}
+      type={"Movie"}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
     />
   ));

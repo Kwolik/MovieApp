@@ -24,9 +24,9 @@ export default function PopularSeries() {
     <MovieList
       key={index}
       title={series.name}
-      year={series.first_air_date.substring(0, 4)}
+      year={series.first_air_date ? series.first_air_date.substring(0, 4) : "20??"}
       // imdbid={movie.imdbID}
-      type={"TV series"}
+      type={"TV Series"}
       poster={`https://image.tmdb.org/t/p/w342/${series.poster_path}`}
     />
   ));
