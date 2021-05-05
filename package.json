@@ -17,6 +17,7 @@
     "expo": "~38.0.8",
     "expo-google-app-auth": "^8.1.2",
     "expo-google-sign-in": "~8.2.1",
+    "expo-linear-gradient": "^9.1.0",
     "expo-localization": "^8.2.1",
     "expo-location": "~8.2.1",
     "expo-status-bar": "^1.0.2",
