@@ -8,15 +8,14 @@ export default function SignUpScreen({ navigation }) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: "center",
+      backgroundColor: "black",
+      justifyContent: 'center',
     },
-    title: {},
     logo: {
-      flex: 1,
-      height: 120,
-      width: 90,
+      height: 200,
+      width: 200,
       alignSelf: "center",
-      margin: 30,
+      margin: 50,
     },
     input: {
       height: 48,
@@ -71,34 +70,30 @@ export default function SignUpScreen({ navigation }) {
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
-        <Image style={styles.logo} source={require("../assets/icon.png")} />
+        <Image style={styles.logo} source={require("../assets/logo.png")} />
         <TextInput
           style={styles.input}
-          placeholder="Full Name"
-          placeholderTextColor="#aaaaaa"
           onChangeText={(name) => setName(name)}
           value={name}
-          underlineColorAndroid="transparent"
+          label="Name"
           autoCapitalize="none"
         />
         <TextInput
           style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#aaaaaa"
           onChangeText={(email) => setEmail(email)}
           value={email}
-          underlineColorAndroid="transparent"
+          label="Email"
           autoCapitalize="none"
+          keyboardType="email-address"
         />
         <TextInput
           style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
           onChangeText={(password) => setPassword(password)}
           value={password}
-          underlineColorAndroid="transparent"
+          label="Password"
+          autoCorrect={false}
           autoCapitalize="none"
+          secureTextEntry
         />
         <TouchableOpacity
           style={styles.button}

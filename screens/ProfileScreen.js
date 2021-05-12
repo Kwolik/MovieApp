@@ -42,7 +42,6 @@ export default function ProfileScreen() {
 
   const { currentUser } = Firebase.auth();
   const { signOutUser } = useContext(mainContext);
-  console.log(currentUser);
 
   return (
     <View style={styles.container}>

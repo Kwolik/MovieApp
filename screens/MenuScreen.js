@@ -7,12 +7,22 @@ export default function MenuScreen({ navigation }) {
     container: {
       flex: 1,
       alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "black",
     },
     logo: {
-      height: 120,
-      width: 90,
+      height: 200,
+      width: 200,
       alignSelf: "center",
       margin: 30,
+      marginBottom: 50,
+    },
+    welcome: {
+      marginTop: 60,
+      margin: 30,
+      color: "white",
+      fontSize: 24,
+      textAlign: "center",
     },
     button: {
       backgroundColor: "#788eec",
@@ -45,7 +55,8 @@ export default function MenuScreen({ navigation }) {
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
-        <Image style={styles.logo} source={require("../assets/icon.png")} />
+        <Text style={styles.welcome}>Welcome!</Text>
+        <Image style={styles.logo} source={require("../assets/logo.png")} />
 
         <TouchableOpacity style={styles.button} onPress={() => onGoingLogin()}>
           <Text style={styles.buttonTitle}>Log in</Text>

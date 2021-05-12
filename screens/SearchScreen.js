@@ -5,19 +5,23 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { RadioButton, Searchbar } from "react-native-paper";
 import MovieListSearch from "../components/MovieListSearch";
+import ActorListSearch from "../components/ActorListSearch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import photo from "../assets/back.png";
 
-export default function SearchScreen() {
+export default function SearchScreen({ navigation }) {
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: "black",
       alignItems: "center",
+    },
+    menu: {
+      flex: 1,
     },
     search: {
       width: "90%",
@@ -31,22 +35,30 @@ export default function SearchScreen() {
       marginTop: 50,
     },
     icon: {
-      margin: 4,
-      fontSize: 26,
+      margin: 2,
+      fontSize: 24,
+      marginTop: 5,
     },
     icon2: {
-      margin: 4,
+      margin: 2,
+      marginTop: 4,
       fontSize: 28,
+      alignItems: "center",
     },
     radioButton: {
-      margin: 5,
+      marginTop: 2,
+      justifyContent: "center",
       flexDirection: "row",
+      flexWrap: "wrap",
     },
     option: {
       flexDirection: "row",
       padding: 2,
-      margin: 6,
+      margin: 4,
       height: 38,
+    },
+    scroll: {
+      marginBottom: 150,
     },
   });
 
@@ -58,6 +70,7 @@ export default function SearchScreen() {
     linkMovie: `https://api.themoviedb.org/3/search/movie?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US&query=${searchQuery}&page=1&include_adult=false`,
     linkSeries: `https://api.themoviedb.org/3/search/tv?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US&page=1&query=${searchQuery}&include_adult=false`,
     linkCollection: `https://api.themoviedb.org/3/search/collection?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US&query=${searchQuery}&page=1`,
+    linkActor: `https://api.themoviedb.org/3/search/person?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US&query=${searchQuery}&page=1&include_adult=false`,
   };
 
   const getMovieRequest = async () => {
@@ -87,6 +100,15 @@ export default function SearchScreen() {
         SetMovies(responseJson.results);
       }
     }
+
+    if (value === "Actor") {
+      const response = await fetch(url.linkActor);
+      const responseJson = await response.json();
+
+      if (responseJson.results) {
+        SetMovies(responseJson.results);
+      }
+    }
   };
 
   //Dodac potem aktorow i zmienic przezroczystosc bialego tekstu jesli bedzie trzeba
@@ -94,6 +116,7 @@ export default function SearchScreen() {
   const movieList = movies.map((movie, index) => (
     <MovieListSearch
       key={index}
+      id={movie.id}
       title={value === "Movie" ? movie.title : movie.name}
       year={
         value === "Movie"
@@ -110,6 +133,20 @@ export default function SearchScreen() {
       type={value}
       plot={movie.overview}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      navigation={navigation}
+    />
+  ));
+
+  const actorList = movies.map((people, index) => (
+    <ActorListSearch
+      key={index}
+      id={people.id}
+      name={people.name}
+      type={people.known_for_department}
+      // imdbid={people.imdbID}
+      poster={`https://image.tmdb.org/t/p/w342/${people.profile_path}`}
+      know={people.known_for}
+      navigation={navigation}
     />
   ));
 
@@ -119,105 +156,117 @@ export default function SearchScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Searchbar
-        style={styles.search}
-        placeholder="Search"
-        onChangeText={onChangeSearch}
-        value={searchQuery}
-      />
-      <RadioButton.Group
-        onValueChange={(newValue) => SetValue(newValue)}
-        value={value}
-      >
-        <View style={styles.radioButton}>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={() => {
-              SetValue("Movie");
-              setSearchQuery("");
-            }}
-          >
-            <MaterialCommunityIcons
-              name="movie-open"
-              style={styles.icon}
-              color={value === "Movie" ? "red" : "white"}
-            />
-            <Text
-              style={{
-                color: value === "Movie" ? "red" : "white",
-                textAlignVertical: "center",
+    <ImageBackground source={photo} style={styles.menu}>
+      <View style={styles.container}>
+        <Searchbar
+          style={styles.search}
+          placeholder="Search"
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+        />
+        <RadioButton.Group
+          onValueChange={(newValue) => SetValue(newValue)}
+          value={value}
+        >
+          <View style={styles.radioButton}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                SetValue("Movie");
+                setSearchQuery("");
               }}
             >
-              Movie
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={() => {
-              SetValue("TV Series");
-              setSearchQuery("");
-            }}
-          >
-            <Ionicons
-              name="ios-tv"
-              style={styles.icon2}
-              color={value === "TV Series" ? "red" : "white"}
-            />
-            <Text
-              style={{
-                color: value === "TV Series" ? "red" : "white",
-                textAlignVertical: "center",
+              <MaterialCommunityIcons
+                name="movie-open"
+                style={styles.icon}
+                color={value === "Movie" ? "#F39B36" : "#E1E1E1"}
+              />
+              <Text
+                style={{
+                  color: value === "Movie" ? "#F39B36" : "#E1E1E1",
+                  textAlignVertical: "center",
+                }}
+              >
+                Movie
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                SetValue("TV Series");
+                setSearchQuery("");
               }}
             >
-              TV Series
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={() => {
-              SetValue("Collection");
-              setSearchQuery("");
-            }}
-          >
-            <MaterialIcons
-              name="collections"
-              style={styles.icon}
-              color={value === "Collection" ? "red" : "white"}
-            />
-            <Text
-              style={{
-                color: value === "Collection" ? "red" : "white",
-                textAlignVertical: "center",
+              <Ionicons
+                name="ios-tv"
+                style={styles.icon2}
+                color={value === "TV Series" ? "#F39B36" : "#E1E1E1"}
+              />
+              <Text
+                style={{
+                  color: value === "TV Series" ? "#F39B36" : "#E1E1E1",
+                  textAlignVertical: "center",
+                }}
+              >
+                TV Series
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                SetValue("Collection");
+                setSearchQuery("");
               }}
             >
-              Collecion
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={() => {
-              SetValue("actor");
-              setSearchQuery("");
-            }}
-          >
-            <Ionicons
-              name="ios-people"
-              style={styles.icon2}
-              color={value === "actor" ? "red" : "white"}
-            />
-            <Text
-              style={{
-                color: value === "actor" ? "red" : "white",
-                textAlignVertical: "center",
+              <MaterialIcons
+                name="collections"
+                style={styles.icon}
+                color={value === "Collection" ? "#F39B36" : "#E1E1E1"}
+              />
+              <Text
+                style={{
+                  color: value === "Collection" ? "#F39B36" : "#E1E1E1",
+                  textAlignVertical: "center",
+                }}
+              >
+                Collecion
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                SetValue("Actor");
+                setSearchQuery("");
               }}
             >
-              Actors
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </RadioButton.Group>
-      <ScrollView>{searchQuery ? movieList : <Text></Text>}</ScrollView>
-    </View>
+              <Ionicons
+                name="ios-people"
+                style={styles.icon2}
+                color={value === "Actor" ? "#F39B36" : "#E1E1E1"}
+              />
+              <Text
+                style={{
+                  color: value === "Actor" ? "#F39B36" : "#E1E1E1",
+                  textAlignVertical: "center",
+                }}
+              >
+                People
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </RadioButton.Group>
+        <ScrollView style={styles.scroll}>
+          {searchQuery ? (
+            value === "Actor" ? (
+              actorList
+            ) : (
+              movieList
+            )
+          ) : (
+            <Text></Text>
+          )}
+        </ScrollView>
+      </View>
+    </ImageBackground>
   );
 }
