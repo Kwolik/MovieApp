@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView } from "react-native";
 import MovieList from "../../components/MovieList";
 
-export default function UpcomingFilms() {
+export default function UpcomingFilms({ navigation }) {
   const [upcomingFilms, SetUpcomingFilms] = React.useState([]);
 
   const getMovieRequest = async () => {
@@ -12,7 +12,7 @@ export default function UpcomingFilms() {
     const responseJson = await response.json();
 
     if (responseJson.results) {
-        SetUpcomingFilms(responseJson.results);
+      SetUpcomingFilms(responseJson.results);
     }
   };
 
@@ -23,11 +23,13 @@ export default function UpcomingFilms() {
   const upcomingFilmsList = upcomingFilms.map((movie, index) => (
     <MovieList
       key={index}
+      id={movie.id}
       title={movie.title}
-      year={movie.release_date.substring(0, 4)}
+      year={movie.release_date ? movie.release_date : "20??"}
       // imdbid={movie.imdbID}
       type={"Movie"}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      navigation={navigation}
     />
   ));
 

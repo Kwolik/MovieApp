@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView } from "react-native";
 import MovieList from "../../components/MovieList";
 
-export default function TrendingSeries() {
+export default function TrendingSeries({ navigation }) {
   const [trendingSeries, SetTrendingSeries] = React.useState([]);
 
   const getMovieRequest = async () => {
@@ -23,11 +23,13 @@ export default function TrendingSeries() {
   const trendingSeriesList = trendingSeries.map((series, index) => (
     <MovieList
       key={index}
+      id={series.id}
       title={series.name}
-      year={series.first_air_date.substring(0, 4)}
+      year={series.first_air_date ? series.first_air_date : "20??"}
       // imdbid={movie.imdbID}
       type={"TV Series"}
       poster={`https://image.tmdb.org/t/p/w342/${series.poster_path}`}
+      navigation={navigation}
     />
   ));
 
