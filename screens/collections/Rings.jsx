@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView } from "react-native";
 import MovieList from "../../components/MovieList";
 
-export default function Rings() {
+export default function Rings({ navigation }) {
   const [rings, SetRings] = React.useState([]);
   const [hobbit, SetHobbit] = React.useState([]);
 
@@ -36,22 +36,28 @@ export default function Rings() {
   const ringsList = rings.map((movie, index) => (
     <MovieList
       key={index}
+      id={movie.id}
       title={movie.title}
-      year={movie.release_date ? movie.release_date.substring(0, 4) : "20??"}
+      year={movie.release_date ? movie.release_date : "20??"}
       // imdbid={movie.imdbID}
-      type={"movie"}
+      type={"Movie"}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      navigation={navigation}
+      screen={1}
     />
   ));
 
   const hobbitList = hobbit.map((movie, index) => (
     <MovieList
       key={index}
+      id={movie.id}
       title={movie.title}
-      year={movie.release_date ? movie.release_date.substring(0, 4) : "20??"}
+      year={movie.release_date ? movie.release_date : "20??"}
       // imdbid={movie.imdbID}
       type={"Movie"}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      navigation={navigation}
+      screen={1}
     />
   ));
 
