@@ -8,16 +8,18 @@ import Foundation from "react-native-vector-icons/Foundation";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import {
+  HomeStackScreen,
+  CollectionStackScreen,
+  SearchStackScreen,
+  MyListStackScreen,
+} from "./components/Navigation";
+import ProfileScreen from "./screens/ProfileScreen";
 import mainContext from "./context/mainContext";
 import Firebase from "./Firebase";
 import MenuScreen from "./screens/MenuScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-import HomeScreen from "./screens/HomeScreen";
-import SearchScreen from "./screens/SearchScreen";
-import CollectionsScreen from "./screens/CollectionsScreen";
-import MyListScreen from "./screens/MyListScreen";
-import ProfileScreen from "./screens/ProfileScreen";
 
 const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -37,14 +39,12 @@ export default function App() {
   }, []);
 
   const doLogin = async (email, password) => {
-    setIsLoading(true);
     Firebase.auth()
       .signInWithEmailAndPassword(email, password)
       .catch((error) => alert(error));
   };
 
   const doSignup = async (email, password) => {
-    setIsLoading(true);
     Firebase.auth()
       .createUserWithEmailAndPassword(email, password)
       .catch((error) => alert(error));
@@ -72,7 +72,7 @@ export default function App() {
       </View>
     );
   }
-
+  //Poprawic wielkość ikonek
   return (
     <mainContext.Provider value={mainC}>
       <NavigationContainer>
@@ -85,15 +85,15 @@ export default function App() {
         ) : (
           <Tab.Navigator
             tabBarOptions={{
-              activeTintColor: "#ff0033",
+              activeTintColor: "#F39B36",
               activeBackgroundColor: "black",
               inactiveBackgroundColor: "black",
-              inactiveTintColor: "white",
+              inactiveTintColor: "#E1E1E1",
             }}
           >
             <Tab.Screen
               name="Home"
-              component={HomeScreen}
+              component={HomeStackScreen}
               color="white"
               options={{
                 tabBarLabel: "Home",
@@ -105,7 +105,7 @@ export default function App() {
 
             <Tab.Screen
               name="Search"
-              component={SearchScreen}
+              component={SearchStackScreen}
               options={{
                 tabBarLabel: "Search",
                 tabBarIcon: ({ color, size }) => (
@@ -116,18 +116,18 @@ export default function App() {
 
             <Tab.Screen
               name="Collections"
-              component={CollectionsScreen}
+              component={CollectionStackScreen}
               options={{
                 tabBarLabel: "Collections",
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons name="ios-grid" color={color} size={size} />
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="ios-grid" color={color} size={28} />
                 ),
               }}
             />
 
             <Tab.Screen
               name="MyList"
-              component={MyListScreen}
+              component={MyListStackScreen}
               options={{
                 tabBarLabel: "My List",
                 tabBarIcon: ({ color, size }) => (
@@ -141,8 +141,8 @@ export default function App() {
               component={ProfileScreen}
               options={{
                 tabBarLabel: "Profile",
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons name="md-people" color={color} size={size} />
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="md-people" color={color} size={32} />
                 ),
               }}
             />

@@ -1,5 +1,5 @@
-import firebase from 'firebase';
-import Constants from 'expo-constants';
+import firebase from "firebase";
+import Constants from "expo-constants";
 const firebaseConfig = {
   apiKey: Constants.manifest.extra.API_KEY,
   authDomain: Constants.manifest.extra.AUTH_DOMAIN,
