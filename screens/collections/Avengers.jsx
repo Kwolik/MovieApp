@@ -34,5 +34,9 @@ export default function Avengers({ navigation }) {
     />
   ));
 
-  return <ScrollView horizontal={true}>{avengersList}</ScrollView>;
+  return (
+    <ScrollView horizontal={true} endFillColor="white">
+      {avengersList}
+    </ScrollView>
+  );
 }
