@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import LinearGradient from "expo-linear-gradient";
 import Firebase from "../../Firebase.js";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MovieList from "../../components/MovieList";
@@ -26,6 +27,7 @@ export default function SeriesDetails({ route, navigation }) {
     },
     centerImage: {
       alignItems: "center",
+      marginTop: 22,
     },
     imageBack: {
       width: "100%",
@@ -37,42 +39,55 @@ export default function SeriesDetails({ route, navigation }) {
       height: 256,
       position: "absolute",
       marginLeft: 10,
-      marginTop: 128,
+      marginTop: 150,
+    },
+    waitingList: {
+      position: "absolute",
+      backgroundColor: "#16161A",
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      right: 10,
+      bottom: 150,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    clock: {
+      fontSize: 46,
+      color: "#E1E1E1",
     },
     favorite: {
       position: "absolute",
       backgroundColor: "#16161A",
-      width: 70,
-      height: 70,
-      borderRadius: 35,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
       right: 10,
-      marginTop: 96,
+      bottom: 80,
       justifyContent: "center",
       alignItems: "center",
     },
     heart: {
-      fontSize: 42,
+      fontSize: 36,
       color: "#E1E1E1",
     },
     rating: {
       position: "absolute",
       backgroundColor: "#16161A",
-      width: 70,
-      height: 70,
-      borderRadius: 35,
+      width: 60,
+      height: 60,
       right: 10,
-      marginTop: 175,
+      bottom: 10,
+      borderRadius: 30,
       justifyContent: "center",
       alignItems: "center",
     },
     rate: {
-      fontSize: 28,
+      fontSize: 26,
       color: "#F39B36",
       fontWeight: "bold",
     },
     titleComponent: {
-      // borderColor: "yellow",
-      // borderWidth: 2,
       marginLeft: 170,
       height: 140,
     },
@@ -80,12 +95,8 @@ export default function SeriesDetails({ route, navigation }) {
       margin: 10,
       fontSize: 20,
       color: "#E1E1E1",
-      // borderColor: "red",
-      // borderWidth: 2,
     },
     titleDesc: {
-      // borderWidth: 2,
-      // borderColor: "red",
       marginLeft: 10,
       marginRight: 10,
       flexDirection: "row",
@@ -110,8 +121,6 @@ export default function SeriesDetails({ route, navigation }) {
       marginRight: 10,
     },
     info: {
-      // borderColor: "red",
-      // borderWidth: 2,
       margin: 10,
     },
     column: {
@@ -128,12 +137,8 @@ export default function SeriesDetails({ route, navigation }) {
       fontSize: 18,
       padding: 5,
       marginRight: 98,
-      // borderWidth: 2,
-      // borderColor: "yellow",
     },
     money: {
-      // borderColor: "red",
-      // borderWidth: 2,
       margin: 10,
       flexDirection: "row",
     },
@@ -150,17 +155,11 @@ export default function SeriesDetails({ route, navigation }) {
       padding: 5,
       marginTop: 10,
       height: 42,
-      // borderColor: "yellow",
-      // borderWidth: 2,
     },
     columnMoney: {
-      // borderColor: "yellow",
-      // borderWidth: 2,
       width: 90,
     },
     tagline: {
-      // borderColor: "yellow",
-      // borderWidth: 2,
       marginRight: 180,
       marginLeft: 5,
     },
@@ -206,9 +205,9 @@ export default function SeriesDetails({ route, navigation }) {
     watchlist: {
       position: "absolute",
       backgroundColor: "#F39B36",
-      width: 70,
-      height: 70,
-      borderRadius: 35,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
       right: 10,
       bottom: 10,
       justifyContent: "center",
@@ -220,12 +219,18 @@ export default function SeriesDetails({ route, navigation }) {
     },
   });
 
-  const { currentUser } = Firebase.auth();
   const [currentDate, setCurrentDate] = React.useState("");
   const [popularSeries, SetPopularSeries] = React.useState([]);
   const [moreSeries, SetMoreSeries] = React.useState([]);
   const pathImageBack = `https://image.tmdb.org/t/p/w1066_and_h600_bestv2/${popularSeries.backdrop_path}`;
   const pathImage = `https://image.tmdb.org/t/p/w342/${popularSeries.poster_path}`;
+  const [over, SetOver] = React.useState(0);
+  const [favorite, SetFavorite] = React.useState(0);
+  const [idFavorite, SetIdFavorite] = React.useState(0);
+  const [watchlist, SetWatchlist] = React.useState(0);
+  const [idWatchlist, SetIdWatchlist] = React.useState(0);
+  const [waitingList, SetWaitingList] = React.useState(0);
+  const [idWaitingList, SetIdWaitingList] = React.useState(0);
 
   const getMovieRequest = async () => {
     const url = `https://api.themoviedb.org/3/tv/${route.params.id}?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US`;
@@ -269,9 +274,9 @@ export default function SeriesDetails({ route, navigation }) {
   }
 
   function addWatchlist() {
-    if (currentUser.uid) {
+    if (idUser) {
       Firebase.database()
-        .ref(`/${currentUser.uid}/Watchlist/Series/${currentDate}`)
+        .ref(`/${idUser}/Watchlist/Series/${currentDate}`)
         .set({
           id: currentDate,
           movie: route.params.id,
@@ -291,9 +296,9 @@ export default function SeriesDetails({ route, navigation }) {
   }
 
   function removeWatchlist() {
-    if (currentUser.uid) {
+    if (idUser) {
       Firebase.database()
-        .ref(`/${currentUser.uid}/Watchlist/Series/${idWatchlist}`)
+        .ref(`/${idUser}/Watchlist/Series/${idWatchlist}`)
         .remove();
 
       SetWatchlist(0);
@@ -307,9 +312,9 @@ export default function SeriesDetails({ route, navigation }) {
   }
 
   function addFavorites() {
-    if (currentUser.uid) {
+    if (idUser) {
       Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Series/${currentDate}`)
+        .ref(`/${idUser}/Favorites/Series/${currentDate}`)
         .set({
           id: currentDate,
           movie: route.params.id,
@@ -329,9 +334,9 @@ export default function SeriesDetails({ route, navigation }) {
   }
 
   function removeFavorites() {
-    if (currentUser.uid) {
+    if (idUser) {
       Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Series/${idFavorite}`)
+        .ref(`/${idUser}/Favorites/Series/${idFavorite}`)
         .remove();
 
       SetFavorite(0);
@@ -340,6 +345,46 @@ export default function SeriesDetails({ route, navigation }) {
     showMessage({
       message: "Delete to Favorite",
       description: "This movie has been removed from favorites",
+      type: "warning",
+    });
+  }
+
+  function addWaitingList() {
+    if (idUser) {
+      Firebase.database()
+        .ref(`/${idUser}/Waitinglist/Series/${currentDate}`)
+        .set({
+          id: currentDate,
+          movie: route.params.id,
+          title: popularSeries.name,
+          poster: popularSeries.poster_path,
+          year: popularSeries.first_air_date,
+        })
+        .then(() => console.log("Add record to database"));
+      SetWaitingList(1);
+      SetIdWaitingList(currentDate);
+    } else {
+      alert("Something wrong :(");
+    }
+    showMessage({
+      message: "Add to Waiting list",
+      description: "This movie has been added to your Waiting list",
+      type: "success",
+    });
+  }
+
+  function removeWaitingList() {
+    if (idUser) {
+      Firebase.database()
+        .ref(`/${idUser}/Waitinglist/Series/${idWaitingList}`)
+        .remove();
+
+      SetWaitingList(0);
+      SetIdWaitingList(0);
+    }
+    showMessage({
+      message: "Delete to Waiting list",
+      description: "This movie has been removed from Waiting list",
       type: "warning",
     });
   }
@@ -358,20 +403,10 @@ export default function SeriesDetails({ route, navigation }) {
     return hover === 0 ? mins + "min" : hover + "h " + mins + "min";
   }
 
-  //More like this wykorzystac Similar Movies w Movies
-
-  //const budget = popularSeries.budget && popularSeries.budget.toString();
-  //const revenue = popularSeries.revenue && popularSeries.revenue.toString();
-  const [over, SetOver] = React.useState(0);
-  const [favorite, SetFavorite] = React.useState(0);
-  const [idFavorite, SetIdFavorite] = React.useState(0);
-  const [watchlist, SetWatchlist] = React.useState(0);
-  const [idWatchlist, SetIdWatchlist] = React.useState(0);
-
   function Fav() {
     React.useEffect(() => {
       const onChildAdd = Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Series`)
+        .ref(`/${idUser}/Favorites/Series`)
         .on("child_added", (snapshot) => {
           const siema = snapshot.val();
           if (siema.movie === route.params.id) {
@@ -380,17 +415,18 @@ export default function SeriesDetails({ route, navigation }) {
           }
         });
 
-      return () =>
+      return () => {
         Firebase.database()
-          .ref(`/${currentUser.uid}/Favorites/Series`)
+          .ref(`/${idUser}/Favorites/Series`)
           .off("child_added", onChildAdd);
+      };
     }, []);
   }
 
   function Watch() {
     React.useEffect(() => {
       const onChildAdd = Firebase.database()
-        .ref(`/${currentUser.uid}/Watchlist/Series`)
+        .ref(`/${idUser}/Watchlist/Series`)
         .on("child_added", (snapshot) => {
           const siema = snapshot.val();
           if (siema.movie === route.params.id) {
@@ -399,10 +435,31 @@ export default function SeriesDetails({ route, navigation }) {
           }
         });
 
-      return () =>
+      return () => {
         Firebase.database()
-          .ref(`/${currentUser.uid}/Watchlist/Series`)
+          .ref(`/${idUser}/Watchlist/Series`)
           .off("child_added", onChildAdd);
+      };
+    }, []);
+  }
+
+  function Waiting() {
+    React.useEffect(() => {
+      const onChildAdd = Firebase.database()
+        .ref(`/${idUser}/Waitinglist/Series`)
+        .on("child_added", (snapshot) => {
+          const siema = snapshot.val();
+          if (siema.movie === route.params.id) {
+            SetWaitingList(1);
+            SetIdWaitingList(siema.id);
+          }
+        });
+
+      return () => {
+        Firebase.database()
+          .ref(`/${idUser}/Waitinglist/Series`)
+          .off("child_added", onChildAdd);
+      };
     }, []);
   }
 
@@ -413,14 +470,17 @@ export default function SeriesDetails({ route, navigation }) {
       title={movie.name}
       year={movie.first_air_date}
       // imdbid={movie.imdbID}
-      type={"Movie"}
+      type={"TV Series"}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
       navigation={navigation}
+      screen={route.params.screen}
+      back={1}
     />
   ));
 
   Fav();
   Watch();
+  Waiting();
 
   if (popularSeries.name) {
     return (
@@ -453,6 +513,24 @@ export default function SeriesDetails({ route, navigation }) {
                 />
               ) : (
                 <Image style={styles.poster} source={photo} alt="poster" />
+              )}
+              {waitingList === 0 ? (
+                <TouchableOpacity
+                  style={styles.waitingList}
+                  onPress={() => addWaitingList()}
+                >
+                  <MaterialCommunityIcons
+                    name="clock-outline"
+                    style={styles.clock}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.waitingList}
+                  onPress={() => removeWaitingList()}
+                >
+                  <MaterialCommunityIcons name="clock" style={styles.clock} />
+                </TouchableOpacity>
               )}
               {favorite === 0 ? (
                 <TouchableOpacity
@@ -497,9 +575,7 @@ export default function SeriesDetails({ route, navigation }) {
                     <Text style={styles.overview}>
                       {popularSeries.overview.substring(0, 166) + "..."}
                     </Text>
-                    <TouchableOpacity
-                      onPress={() => SetOver(1)}
-                    >
+                    <TouchableOpacity onPress={() => SetOver(1)}>
                       <Text style={styles.readMore}>Read more</Text>
                     </TouchableOpacity>
                   </View>
@@ -618,14 +694,6 @@ export default function SeriesDetails({ route, navigation }) {
                 <ScrollView horizontal={true}>{moreMovieList}</ScrollView>
               </View>
             )}
-            {/* <View>
-          <TouchableOpacity style={styles.data} onPress={() => addWatchlist()}>
-            <Text>Dodaj do Watchlist</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.data} onPress={() => addFavorites()}>
-            <Text>Dodaj do Favorites</Text>
-          </TouchableOpacity>
-        </View> */}
           </ScrollView>
           {watchlist === 0 ? (
             <TouchableOpacity

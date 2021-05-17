@@ -30,6 +30,7 @@ export default function TrendingSeries({ navigation }) {
       type={"TV Series"}
       poster={`https://image.tmdb.org/t/p/w342/${series.poster_path}`}
       navigation={navigation}
+      screen={0}
     />
   ));
 

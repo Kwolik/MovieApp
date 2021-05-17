@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView } from "react-native";
 import PeopleList from "../../components/PeopleList";
 
-export default function PopularPerson({navigation}) {
+export default function PopularPerson({ navigation }) {
   const [popularPerson, SetPopularPerson] = React.useState([]);
 
   const getMovieRequest = async () => {
@@ -27,7 +27,11 @@ export default function PopularPerson({navigation}) {
       name={people.name}
       title={people.known_for[0].title}
       // imdbid={people.imdbID}
-      poster={`https://image.tmdb.org/t/p/w342/${people.profile_path}`}
+      poster={
+        people.profile_path
+          ? `https://image.tmdb.org/t/p/w342/${people.profile_path}`
+          : null
+      }
       navigation={navigation}
     />
   ));

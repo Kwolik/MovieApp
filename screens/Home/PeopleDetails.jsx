@@ -12,25 +12,30 @@ import {
 } from "react-native";
 import MovieList from "../../components/MovieList";
 import photo from "../../assets/back.png";
+import nophoto from "../../assets/nophoto.png";
 
 export default function PeopleDetails({ route, navigation }) {
   const styles = StyleSheet.create({
     menu: {
       flex: 1,
     },
+    container: {
+      marginTop: 20,
+    },
     mainInfo: {
       flexDirection: "row",
     },
     poster: {
-      width: 140,
-      height: 140,
+      width: 150,
+      height: 150,
       marginLeft: 10,
-      marginTop: 10,
-      borderRadius: 70,
+      marginTop: 20,
+      borderRadius: 75,
     },
     description: {
-      marginLeft: 20,
+      marginLeft: 10,
       marginTop: 20,
+      marginRight: 170,
     },
     name: {
       fontSize: 20,
@@ -46,6 +51,7 @@ export default function PeopleDetails({ route, navigation }) {
       height: 35,
       borderRadius: 40,
       margin: 20,
+      marginBottom: 10,
       backgroundColor: "#9A9A9B",
       alignItems: "center",
       justifyContent: "center",
@@ -57,7 +63,12 @@ export default function PeopleDetails({ route, navigation }) {
     },
     biography: {
       margin: 10,
-      height: 140,
+    },
+    readMore: {
+      color: "#F39B36",
+      fontSize: 18,
+      textAlign: "right",
+      marginRight: 10,
     },
     text: {
       color: "#E1E1E1",
@@ -67,12 +78,15 @@ export default function PeopleDetails({ route, navigation }) {
       fontSize: 20,
       color: "#F39B36",
       marginLeft: 10,
+      marginTop: 10,
       fontWeight: "bold",
     },
   });
 
   const [popularPerson, SetPopularPerson] = React.useState([]);
   const [popularFilms, SetPopularFilms] = React.useState([]);
+  const [over, SetOver] = React.useState(0);
+  var currentYear = new Date().getFullYear();
   const pathImage = `https://image.tmdb.org/t/p/w342/${popularPerson.profile_path}`;
 
   const getMovieRequest = async () => {
@@ -116,27 +130,40 @@ export default function PeopleDetails({ route, navigation }) {
     />
   ));
 
-  if (popularPerson.name && popularFilms.length !== 0) {
+  if (popularPerson.name) {
     return (
       <ImageBackground source={photo} style={styles.menu}>
         <ScrollView style={styles.menu}>
-          <View style={styles.menu}>
+          <View style={styles.container}>
             <View style={styles.mainInfo}>
               <View>
-                <Image
-                  style={styles.poster}
-                  source={{ uri: pathImage }}
-                  alt="background"
-                />
+                {popularPerson.profile_path ? (
+                  <Image
+                    style={styles.poster}
+                    source={{ uri: pathImage }}
+                    alt="poster"
+                  />
+                ) : (
+                  <Image style={styles.poster} source={nophoto} alt="poster" />
+                )}
               </View>
               <View style={styles.description}>
                 <Text style={styles.name}>{popularPerson.name}</Text>
                 <Text style={styles.birthday}>
-                  Date of birth:
-                  {popularPerson.birthday
-                    ? " " + popularPerson.birthday.substring(0, 4)
-                    : ""}
+                  {popularPerson.known_for_department}
                 </Text>
+                {popularPerson.birthday && (
+                  <Text style={styles.birthday}>
+                    {popularPerson.birthday && popularPerson.deathday
+                      ? popularPerson.deathday.substring(0, 4) -
+                        popularPerson.birthday.substring(0, 4) +
+                        " "
+                      : currentYear -
+                        popularPerson.birthday.substring(0, 4) +
+                        " "}
+                    years
+                  </Text>
+                )}
                 {popularPerson.imdb_id ? (
                   <TouchableOpacity
                     style={styles.button}
@@ -153,19 +180,28 @@ export default function PeopleDetails({ route, navigation }) {
                 )}
               </View>
             </View>
-            {popularPerson.biography ? (
-              <View>
-                <ScrollView style={styles.biography}>
-                  <Text style={styles.text}>{popularPerson.biography}</Text>
-                </ScrollView>
+            {popularPerson.biography &&
+            popularPerson.biography.length > 182 &&
+            over === 0 ? (
+              <View style={styles.biography}>
+                <Text style={styles.text}>
+                  {popularPerson.biography.substring(0, 180) + "..."}
+                </Text>
+                <TouchableOpacity onPress={() => SetOver(1)}>
+                  <Text style={styles.readMore}>Read more</Text>
+                </TouchableOpacity>
               </View>
             ) : (
-              <Text></Text>
+              <View style={styles.biography}>
+                <Text style={styles.text}>{popularPerson.biography}</Text>
+              </View>
             )}
-            <View>
-              <Text style={styles.knowFor}>Know for</Text>
-              <ScrollView horizontal={true}>{popularFilmsList}</ScrollView>
-            </View>
+            {popularFilms.length !== 0 && (
+              <View>
+                <Text style={styles.knowFor}>Know for</Text>
+                <ScrollView horizontal={true}>{popularFilmsList}</ScrollView>
+              </View>
+            )}
           </View>
         </ScrollView>
       </ImageBackground>

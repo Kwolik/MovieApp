@@ -30,6 +30,7 @@ export default function TrendingFilms({ navigation }) {
       type={"Movie"}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
       navigation={navigation}
+      screen={0}
     />
   ));
 

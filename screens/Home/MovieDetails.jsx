@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import LinearGradient from "expo-linear-gradient";
 import Firebase from "../../Firebase.js";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MovieList from "../../components/MovieList";
@@ -26,6 +27,7 @@ export default function MovieDetails({ route, navigation }) {
     },
     centerImage: {
       alignItems: "center",
+      marginTop: 22,
     },
     imageBack: {
       width: "100%",
@@ -37,42 +39,55 @@ export default function MovieDetails({ route, navigation }) {
       height: 256,
       position: "absolute",
       marginLeft: 10,
-      marginTop: 128,
+      marginTop: 150,
+    },
+    waitingList: {
+      position: "absolute",
+      backgroundColor: "#16161A",
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      right: 10,
+      bottom: 150,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    clock: {
+      fontSize: 46,
+      color: "#E1E1E1",
     },
     favorite: {
       position: "absolute",
       backgroundColor: "#16161A",
-      width: 70,
-      height: 70,
-      borderRadius: 35,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
       right: 10,
-      marginTop: 96,
+      bottom: 80,
       justifyContent: "center",
       alignItems: "center",
     },
     heart: {
-      fontSize: 42,
-      color: "white",
+      fontSize: 36,
+      color: "#E1E1E1",
     },
     rating: {
       position: "absolute",
       backgroundColor: "#16161A",
-      width: 70,
-      height: 70,
-      borderRadius: 35,
+      width: 60,
+      height: 60,
       right: 10,
-      marginTop: 175,
+      bottom: 10,
+      borderRadius: 30,
       justifyContent: "center",
       alignItems: "center",
     },
     rate: {
-      fontSize: 28,
+      fontSize: 26,
       color: "#F39B36",
       fontWeight: "bold",
     },
     titleComponent: {
-      // borderColor: "yellow",
-      // borderWidth: 2,
       marginLeft: 170,
       height: 140,
     },
@@ -80,12 +95,8 @@ export default function MovieDetails({ route, navigation }) {
       margin: 10,
       fontSize: 20,
       color: "#E1E1E1",
-      // borderColor: "red",
-      // borderWidth: 2,
     },
     titleDesc: {
-      // borderWidth: 2,
-      // borderColor: "red",
       marginLeft: 10,
       marginRight: 10,
       flexDirection: "row",
@@ -110,8 +121,6 @@ export default function MovieDetails({ route, navigation }) {
       marginRight: 10,
     },
     info: {
-      // borderColor: "red",
-      // borderWidth: 2,
       margin: 10,
     },
     column: {
@@ -128,12 +137,8 @@ export default function MovieDetails({ route, navigation }) {
       fontSize: 18,
       padding: 5,
       marginRight: 98,
-      // borderWidth: 2,
-      // borderColor: "yellow",
     },
     money: {
-      // borderColor: "red",
-      // borderWidth: 2,
       margin: 10,
       flexDirection: "row",
     },
@@ -149,13 +154,9 @@ export default function MovieDetails({ route, navigation }) {
       padding: 5,
     },
     columnMoney: {
-      // borderColor: "yellow",
-      // borderWidth: 2,
       width: 85,
     },
     tagline: {
-      // borderColor: "yellow",
-      // borderWidth: 2,
       marginRight: 170,
       marginLeft: 5,
     },
@@ -193,9 +194,9 @@ export default function MovieDetails({ route, navigation }) {
     watchlist: {
       position: "absolute",
       backgroundColor: "#F39B36",
-      width: 70,
-      height: 70,
-      borderRadius: 35,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
       right: 10,
       bottom: 10,
       justifyContent: "center",
@@ -207,12 +208,20 @@ export default function MovieDetails({ route, navigation }) {
     },
   });
 
-  const { currentUser } = Firebase.auth();
   const [currentDate, setCurrentDate] = React.useState("");
   const [popularFilms, SetPopularFilms] = React.useState([]);
   const [moreMovies, SetMoreMovies] = React.useState([]);
   const pathImageBack = `https://image.tmdb.org/t/p/w1066_and_h600_bestv2/${popularFilms.backdrop_path}`;
   const pathImage = `https://image.tmdb.org/t/p/w342/${popularFilms.poster_path}`;
+  const budget = popularFilms.budget && popularFilms.budget.toString();
+  const revenue = popularFilms.revenue && popularFilms.revenue.toString();
+  const [over, SetOver] = React.useState(0);
+  const [favorite, SetFavorite] = React.useState(0);
+  const [idFavorite, SetIdFavorite] = React.useState(0);
+  const [watchlist, SetWatchlist] = React.useState(0);
+  const [idWatchlist, SetIdWatchlist] = React.useState(0);
+  const [waitingList, SetWaitingList] = React.useState(0);
+  const [idWaitingList, SetIdWaitingList] = React.useState(0);
 
   const getMovieRequest = async () => {
     const url = `https://api.themoviedb.org/3/movie/${route.params.id}?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US`;
@@ -256,16 +265,14 @@ export default function MovieDetails({ route, navigation }) {
   }
 
   function addWatchlist() {
-    if (currentUser.uid) {
-      Firebase.database()
-        .ref(`/${currentUser.uid}/Watchlist/Movie/${currentDate}`)
-        .set({
-          id: currentDate,
-          movie: route.params.id,
-          title: popularFilms.title,
-          poster: popularFilms.poster_path,
-          year: popularFilms.release_date,
-        });
+    if (idUser) {
+      Firebase.database().ref(`/${idUser}/Watchlist/Movie/${currentDate}`).set({
+        id: currentDate,
+        movie: route.params.id,
+        title: popularFilms.title,
+        poster: popularFilms.poster_path,
+        year: popularFilms.release_date,
+      });
     } else {
       alert("Something wrong :(");
     }
@@ -277,25 +284,26 @@ export default function MovieDetails({ route, navigation }) {
   }
 
   function removeWatchlist() {
-    if (currentUser.uid) {
+    if (idUser) {
       Firebase.database()
-        .ref(`/${currentUser.uid}/Watchlist/Movie/${idWatchlist}`)
+        .ref(`/${idUser}/Watchlist/Movie/${idWatchlist}`)
         .remove();
 
       SetWatchlist(0);
       SetIdWatchlist(0);
+
+      showMessage({
+        message: "Delete to Watchlist",
+        description: "This movie has been removed from watchlist",
+        type: "warning",
+      });
     }
-    showMessage({
-      message: "Delete to Watchlist",
-      description: "This movie has been removed from watchlist",
-      type: "warning",
-    });
   }
 
   function addFavorites() {
-    if (currentUser.uid) {
+    if (idUser) {
       Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Movie/${currentDate}`)
+        .ref(`/${idUser}/Favorites/Movie/${currentDate}`)
         .set({
           id: currentDate,
           movie: route.params.id,
@@ -317,19 +325,61 @@ export default function MovieDetails({ route, navigation }) {
   }
 
   function removeFavorites() {
-    if (currentUser.uid) {
+    if (idUser) {
       Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Movie/${idFavorite}`)
+        .ref(`/${idUser}/Favorites/Movie/${idFavorite}`)
         .remove();
 
       SetFavorite(0);
       SetIdFavorite(0);
+
+      showMessage({
+        message: "Delete to Favorite",
+        description: "This movie has been removed from favorites",
+        type: "warning",
+      });
+    }
+  }
+
+  function addWaitingList() {
+    if (idUser) {
+      Firebase.database()
+        .ref(`/${idUser}/Waitinglist/Movie/${currentDate}`)
+        .set({
+          id: currentDate,
+          movie: route.params.id,
+          title: popularFilms.title,
+          poster: popularFilms.poster_path,
+          year: popularFilms.release_date,
+        })
+        .then(() => console.log("Add record to database"));
+      SetWaitingList(1);
+      SetIdWaitingList(currentDate);
+    } else {
+      alert("Something wrong :(");
     }
     showMessage({
-      message: "Delete to Favorite",
-      description: "This movie has been removed from favorites",
-      type: "warning",
+      message: "Add to Waiting list",
+      description: "This movie has been added to your Waiting list",
+      type: "success",
     });
+  }
+
+  function removeWaitingList() {
+    if (idUser) {
+      Firebase.database()
+        .ref(`/${idUser}/Waitinglist/Movie/${idWaitingList}`)
+        .remove();
+
+      SetWaitingList(0);
+      SetIdWaitingList(0);
+
+      showMessage({
+        message: "Delete to Waiting list",
+        description: "This movie has been removed from Waiting list",
+        type: "warning",
+      });
+    }
   }
 
   function RunTime() {
@@ -341,22 +391,10 @@ export default function MovieDetails({ route, navigation }) {
     return hover === 0 ? mins + "min" : hover + "h " + mins + "min";
   }
 
-  //More like this wykorzystac Similar Movies w Movies
-  //console.log(popularFilms);
-  //console.log(popularFilms.tagline);
-
-  const budget = popularFilms.budget && popularFilms.budget.toString();
-  const revenue = popularFilms.revenue && popularFilms.revenue.toString();
-  const [over, SetOver] = React.useState(0);
-  const [favorite, SetFavorite] = React.useState(0);
-  const [idFavorite, SetIdFavorite] = React.useState(0);
-  const [watchlist, SetWatchlist] = React.useState(0);
-  const [idWatchlist, SetIdWatchlist] = React.useState(0);
-
   function Fav() {
     React.useEffect(() => {
       const onChildAdd = Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Movie`)
+        .ref(`/${idUser}/Favorites/Movie`)
         .on("child_added", (snapshot) => {
           const siema = snapshot.val();
           if (siema.movie === route.params.id) {
@@ -365,17 +403,18 @@ export default function MovieDetails({ route, navigation }) {
           }
         });
 
-      return () =>
+      return () => {
         Firebase.database()
-          .ref(`/${currentUser.uid}/Favorites/Movie`)
+          .ref(`/${idUser}/Favorites/Movie`)
           .off("child_added", onChildAdd);
+      };
     }, []);
   }
 
   function Watch() {
     React.useEffect(() => {
       const onChildAdd = Firebase.database()
-        .ref(`/${currentUser.uid}/Watchlist/Movie`)
+        .ref(`/${idUser}/Watchlist/Movie`)
         .on("child_added", (snapshot) => {
           const siema = snapshot.val();
           if (siema.movie === route.params.id) {
@@ -384,10 +423,31 @@ export default function MovieDetails({ route, navigation }) {
           }
         });
 
-      return () =>
+      return () => {
         Firebase.database()
-          .ref(`/${currentUser.uid}/Watchlist/Movie`)
+          .ref(`/${idUser}/Watchlist/Movie`)
           .off("child_added", onChildAdd);
+      };
+    }, []);
+  }
+
+  function Waiting() {
+    React.useEffect(() => {
+      const onChildAdd = Firebase.database()
+        .ref(`/${idUser}/Waitinglist/Movie`)
+        .on("child_added", (snapshot) => {
+          const siema = snapshot.val();
+          if (siema.movie === route.params.id) {
+            SetWaitingList(1);
+            SetIdWaitingList(siema.id);
+          }
+        });
+
+      return () => {
+        Firebase.database()
+          .ref(`/${idUser}/Waitinglist/Movie`)
+          .off("child_added", onChildAdd);
+      };
     }, []);
   }
 
@@ -401,11 +461,14 @@ export default function MovieDetails({ route, navigation }) {
       type={"Movie"}
       poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
       navigation={navigation}
+      screen={route.params.screen}
+      back={1}
     />
   ));
 
   Fav();
   Watch();
+  Waiting();
 
   if (popularFilms.title) {
     return (
@@ -438,6 +501,24 @@ export default function MovieDetails({ route, navigation }) {
                 />
               ) : (
                 <Image style={styles.poster} source={photo} alt="poster" />
+              )}
+              {waitingList === 0 ? (
+                <TouchableOpacity
+                  style={styles.waitingList}
+                  onPress={() => addWaitingList()}
+                >
+                  <MaterialCommunityIcons
+                    name="clock-outline"
+                    style={styles.clock}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.waitingList}
+                  onPress={() => removeWaitingList()}
+                >
+                  <MaterialCommunityIcons name="clock" style={styles.clock} />
+                </TouchableOpacity>
               )}
               {favorite === 0 ? (
                 <TouchableOpacity
