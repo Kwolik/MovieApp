@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import MovieList from "../../components/MovieList";
+import MovieList from "../../component/MovieList";
 
 export default function Bond({ navigation }) {
   const [bond, SetBond] = React.useState([]);

@@ -14,7 +14,7 @@ import {
   SearchStackScreen,
   MyListStackScreen,
   ProfileStackScreen,
-} from "./components/Navigation";
+} from "./component/Navigation";
 import mainContext from "./context/mainContext";
 import Firebase from "./Firebase";
 import MenuScreen from "./screens/MenuScreen";

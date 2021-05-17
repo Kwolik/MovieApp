@@ -15,7 +15,7 @@ import Firebase from "../../Firebase.js";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import MovieList from "../../components/MovieList";
+import MovieList from "../../component/MovieList";
 import { showMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import photo from "../../assets/back.png";

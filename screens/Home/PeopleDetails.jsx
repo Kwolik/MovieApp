@@ -10,7 +10,7 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
-import MovieList from "../../components/MovieList";
+import MovieList from "../../component/MovieList";
 import photo from "../../assets/back.png";
 import nophoto from "../../assets/nophoto.png";
 

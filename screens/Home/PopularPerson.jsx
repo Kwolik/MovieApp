@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import PeopleList from "../../components/PeopleList";
+import PeopleList from "../../component/PeopleList";
 
 export default function PopularPerson({ navigation }) {
   const [popularPerson, SetPopularPerson] = React.useState([]);

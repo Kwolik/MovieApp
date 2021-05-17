@@ -8,8 +8,8 @@ import {
   ImageBackground,
 } from "react-native";
 import { RadioButton, Searchbar } from "react-native-paper";
-import MovieListSearch from "../components/MovieListSearch";
-import ActorListSearch from "../components/ActorListSearch";
+import MovieListSearch from "../component/MovieListSearch";
+import ActorListSearch from "../component/ActorListSearch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
