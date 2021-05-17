@@ -11,7 +11,7 @@ import Firebase from "../../Firebase";
 import OneMovie from "./OneMovie";
 import photo from "../../assets/back.png";
 
-export default function Favorites({ route, navigation }) {
+export default function WaitingList({ route, navigation }) {
   const styles = StyleSheet.create({
     container: {
       justifyContent: "center",
@@ -50,7 +50,7 @@ export default function Favorites({ route, navigation }) {
     const tab = [];
     const tab2 = [];
     Firebase.database()
-      .ref(`/${idUser}/Favorites/Movie`)
+      .ref(`/${idUser}/Waitinglist/Movie`)
       .on("child_added", (snapshot) => {
         tab.push(snapshot.val());
       });
@@ -58,7 +58,7 @@ export default function Favorites({ route, navigation }) {
     SetPopularFilms(tab);
 
     Firebase.database()
-      .ref(`/${idUser}/Favorites/Series`)
+      .ref(`/${idUser}/Waitinglist/Series`)
       .on("child_added", (snapshot) => {
         tab2.push(snapshot.val());
       });

@@ -41,7 +41,10 @@ export default function MovieBase(props) {
     <View style={styles.menu}>
       <TouchableOpacity
         onPress={() =>
-          props.navigation.navigate("MyListMovieDetails", { id: props.id })
+          props.navigation.navigate("MyListMovieDetails", {
+            id: props.id,
+            screen: 3,
+          })
         }
       >
         <Image

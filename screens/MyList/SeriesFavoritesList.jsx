@@ -32,32 +32,31 @@ export default function SeriesBaseList(props) {
     },
   });
 
-  const { currentUser } = Firebase.auth();
   const [popularSeries, SetPopularSeries] = React.useState([]);
   const [data, SetData] = React.useState([]);
 
-  if (currentUser.uid) {
-    React.useEffect(() => {
-      Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Series`)
-        .on("value", (snapshot) => {
-          SetData(snapshot.val());
-        });
-    }, []);
-  }
+  React.useEffect(() => {
+    Firebase.database()
+      .ref(`/${idUser}/Favorites/Series`)
+      .on("value", (snapshot) => {
+        SetData(snapshot.val());
+      });
+  }, []);
 
-  if (currentUser.uid) {
-    React.useEffect(() => {
-      const tab = [];
-      Firebase.database()
-        .ref(`/${currentUser.uid}/Favorites/Series`)
-        .on("child_added", (snapshot) => {
-          tab.push(snapshot.val());
-        });
+  React.useEffect(() => {
+    const tab = [];
+    Firebase.database()
+      .ref(`/${idUser}/Favorites/Series`)
+      .on("child_added", (snapshot) => {
+        tab.push(snapshot.val());
+      });
 
-      SetPopularSeries(tab);
-    }, [currentUser.uid ? currentUser.uid : "", data]);
-  }
+    SetPopularSeries(tab);
+
+    return function cleanup() {
+      tab.length = 0;
+    };
+  }, [data]);
 
   const popularSeriesList = popularSeries.reverse().map((movie, index) => (
     <SeriesBase

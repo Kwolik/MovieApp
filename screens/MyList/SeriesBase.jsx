@@ -43,6 +43,7 @@ export default function SeriesBase(props) {
         onPress={() =>
           props.navigation.navigate("MyListSeriesDetails", {
             id: props.id,
+            screen: 3,
           })
         }
       >

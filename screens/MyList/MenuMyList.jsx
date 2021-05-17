@@ -8,7 +8,6 @@ export default function MenuMyList(props) {
       flex: 1,
       flexDirection: "row",
       flexWrap: "wrap",
-      //justifyContent: "space-between",
       justifyContent: "center",
       marginTop: 10,
     },
@@ -65,9 +64,16 @@ export default function MenuMyList(props) {
         <MaterialCommunityIcons name="heart-multiple" style={styles.icon} />
         <Text style={styles.text}>Favorites</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.desc}>
-        <MaterialCommunityIcons name="movie-roll" style={styles.all} />
-        <Text style={styles.text}>All Movies</Text>
+      <TouchableOpacity
+        style={styles.desc}
+        onPress={() =>
+          props.navigation.navigate("WaitingList", {
+            value: 2,
+          })
+        }
+      >
+        <MaterialCommunityIcons name="clock" style={styles.all} />
+        <Text style={styles.text}>Waiting list</Text>
       </TouchableOpacity>
     </View>
   );

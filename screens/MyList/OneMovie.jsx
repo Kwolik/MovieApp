@@ -15,8 +15,9 @@ export default function OneMovie(props) {
       borderRadius: 10,
     },
     bottom: {
-      marginLeft: 5,
+      marginLeft: 10,
       justifyContent: "center",
+      marginRight: 60,
     },
     title: {
       color: "#E1E1E1",
@@ -38,9 +39,11 @@ export default function OneMovie(props) {
             props.value === 0
               ? props.navigation.navigate("MyListMovieDetails", {
                   id: props.id,
+                  screen: 3,
                 })
               : props.navigation.navigate("MyListSeriesDetails", {
                   id: props.id,
+                  screen: 3,
                 });
           }
         }}
@@ -52,9 +55,10 @@ export default function OneMovie(props) {
         />
         <View style={styles.bottom}>
           <Text style={styles.title}>
-            {props.title && props.title.length > 38
-              ? props.title.substring(0, 40) + "..."
-              : props.title}
+            {/* {props.title && props.title.length > 36
+              ? props.title.substring(0, 34) + "..."
+              : props.title} */}
+            {props.title}
           </Text>
           <Text style={styles.year}>{props.year.substring(0, 4)}</Text>
         </View>

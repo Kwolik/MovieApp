@@ -32,13 +32,12 @@ export default function SeriesBaseList(props) {
     },
   });
 
-  const { currentUser } = Firebase.auth();
   const [popularSeries, SetPopularSeries] = React.useState([]);
   const [data, SetData] = React.useState([]);
 
   React.useEffect(() => {
     Firebase.database()
-      .ref(`/${currentUser.uid}/Watchlist/Series`)
+      .ref(`/${idUser}/Watchlist/Series`)
       .on("value", (snapshot) => {
         SetData(snapshot.val());
       });
@@ -47,13 +46,16 @@ export default function SeriesBaseList(props) {
   React.useEffect(() => {
     const tab = [];
     Firebase.database()
-      .ref(`/${currentUser.uid}/Watchlist/Series`)
+      .ref(`/${idUser}/Watchlist/Series`)
       .on("child_added", (snapshot) => {
         tab.push(snapshot.val());
       });
 
     SetPopularSeries(tab);
-  }, [currentUser.uid ? currentUser.uid : "", data]);
+    return function cleanup() {
+      tab.length = 0;
+    };
+  }, [data]);
 
   const popularSeriesList = popularSeries.reverse().map((movie, index) => (
     <SeriesBase

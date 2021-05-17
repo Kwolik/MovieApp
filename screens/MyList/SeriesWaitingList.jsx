@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Firebase from "../../Firebase";
-import MovieBase from "./MovieBase";
+import SeriesBase from "./SeriesBase";
 
-export default function MovieBaseList(props) {
+export default function SeriesWaitingList(props) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -32,33 +32,34 @@ export default function MovieBaseList(props) {
     },
   });
 
-  const [popularFilms, SetPopularFilms] = React.useState([]);
-  const [dataMovie, SetDataMovie] = React.useState([]);
+  const { currentUser } = Firebase.auth();
+  const [popularSeries, SetPopularSeries] = React.useState([]);
+  const [data, SetData] = React.useState([]);
 
   React.useEffect(() => {
     Firebase.database()
-      .ref(`/${idUser}/Watchlist/Movie`)
+      .ref(`/${idUser}/Waitinglist/Series`)
       .on("value", (snapshot) => {
-        SetDataMovie(snapshot.val());
+        SetData(snapshot.val());
       });
   }, []);
 
   React.useEffect(() => {
     const tab = [];
     Firebase.database()
-      .ref(`/${idUser}/Watchlist/Movie`)
+      .ref(`/${idUser}/Waitinglist/Series`)
       .on("child_added", (snapshot) => {
         tab.push(snapshot.val());
       });
 
-    SetPopularFilms(tab);
+    SetPopularSeries(tab);
     return function cleanup() {
       tab.length = 0;
     };
-  }, [dataMovie]);
+  }, [data]);
 
-  const popularFilmsList = popularFilms.reverse().map((movie, index) => (
-    <MovieBase
+  const popularSeriesList = popularSeries.reverse().map((movie, index) => (
+    <SeriesBase
       key={index}
       id={movie.movie}
       title={movie.title}
@@ -72,13 +73,13 @@ export default function MovieBaseList(props) {
 
   return (
     <View style={styles.container}>
-      {popularFilmsList[0] ? (
+      {popularSeriesList[0] ? (
         <View style={styles.info}>
-          <Text style={styles.text}>Watched Movies</Text>
+          <Text style={styles.text}>Waiting list Tv Series</Text>
           <TouchableOpacity
             onPress={() =>
-              props.navigation.navigate("Watchlist", {
-                value: 0,
+              props.navigation.navigate("WaitingList", {
+                value: 1,
               })
             }
           >
@@ -88,7 +89,7 @@ export default function MovieBaseList(props) {
       ) : (
         <Text></Text>
       )}
-      <ScrollView horizontal={true}>{popularFilmsList}</ScrollView>
+      <ScrollView horizontal={true}>{popularSeriesList}</ScrollView>
     </View>
   );
 }

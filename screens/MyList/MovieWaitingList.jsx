@@ -9,7 +9,7 @@ import {
 import Firebase from "../../Firebase";
 import MovieBase from "./MovieBase";
 
-export default function MovieBaseList(props) {
+export default function MovieWaitingList(props) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -37,7 +37,7 @@ export default function MovieBaseList(props) {
 
   React.useEffect(() => {
     Firebase.database()
-      .ref(`/${idUser}/Watchlist/Movie`)
+      .ref(`/${idUser}/Waitinglist/Movie`)
       .on("value", (snapshot) => {
         SetDataMovie(snapshot.val());
       });
@@ -46,7 +46,7 @@ export default function MovieBaseList(props) {
   React.useEffect(() => {
     const tab = [];
     Firebase.database()
-      .ref(`/${idUser}/Watchlist/Movie`)
+      .ref(`/${idUser}/Waitinglist/Movie`)
       .on("child_added", (snapshot) => {
         tab.push(snapshot.val());
       });
@@ -74,10 +74,10 @@ export default function MovieBaseList(props) {
     <View style={styles.container}>
       {popularFilmsList[0] ? (
         <View style={styles.info}>
-          <Text style={styles.text}>Watched Movies</Text>
+          <Text style={styles.text}>Waiting list Movies</Text>
           <TouchableOpacity
             onPress={() =>
-              props.navigation.navigate("Watchlist", {
+              props.navigation.navigate("WaitingList", {
                 value: 0,
               })
             }

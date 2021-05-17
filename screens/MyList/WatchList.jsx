@@ -15,6 +15,7 @@ export default function WatchList({ route, navigation }) {
   const styles = StyleSheet.create({
     container: {
       justifyContent: "center",
+      marginTop: 20,
     },
     menu: {
       flex: 1,
@@ -25,16 +26,21 @@ export default function WatchList({ route, navigation }) {
       fontWeight: "bold",
       margin: 10,
     },
+    result: {
+      color: "#B2B2B2",
+      fontSize: 18,
+      fontWeight: "bold",
+      margin: 10,
+    },
   });
 
-  const { currentUser } = Firebase.auth();
   const [popularFilms, SetPopularFilms] = React.useState([]);
   const [popularSeries, SetPopularSeries] = React.useState([]);
   const [data, SetData] = React.useState([]);
 
   React.useEffect(() => {
     Firebase.database()
-      .ref(`/${currentUser.uid}`)
+      .ref(`/${idUser}`)
       .on("value", (snapshot) => {
         SetData(snapshot.val());
       });
@@ -44,7 +50,7 @@ export default function WatchList({ route, navigation }) {
     const tab = [];
     const tab2 = [];
     Firebase.database()
-      .ref(`/${currentUser.uid}/Watchlist/Movie`)
+      .ref(`/${idUser}/Watchlist/Movie`)
       .on("child_added", (snapshot) => {
         tab.push(snapshot.val());
       });
@@ -52,13 +58,17 @@ export default function WatchList({ route, navigation }) {
     SetPopularFilms(tab);
 
     Firebase.database()
-      .ref(`/${currentUser.uid}/Watchlist/Series`)
+      .ref(`/${idUser}/Watchlist/Series`)
       .on("child_added", (snapshot) => {
         tab2.push(snapshot.val());
       });
 
     SetPopularSeries(tab2);
-  }, [currentUser.uid ? currentUser.uid : "", data]);
+    return function cleanup() {
+      tab.length = 0;
+      tab2.lenth = 0;
+    };
+  }, [data]);
 
   const movieList = popularFilms.map((movie, index) => (
     <OneMovie
@@ -87,7 +97,7 @@ export default function WatchList({ route, navigation }) {
     />
   ));
 
-  if (popularFilms.length !== 0 && popularSeries.length !== 0) {
+  if (popularFilms.length !== 0 || popularSeries.length !== 0) {
     return (
       <ImageBackground source={photo} style={styles.menu}>
         <View style={styles.container}>
@@ -106,9 +116,17 @@ export default function WatchList({ route, navigation }) {
           {route.params.value === 2 && (
             <ScrollView>
               <Text style={styles.text}>Movies</Text>
-              <View>{movieList}</View>
+              {popularFilms.length !== 0 ? (
+                <View>{movieList}</View>
+              ) : (
+                <Text style={styles.result}>No result</Text>
+              )}
               <Text style={styles.text}>Tv Series</Text>
-              <View>{seriesList}</View>
+              {popularSeries.length !== 0 ? (
+                <View>{seriesList}</View>
+              ) : (
+                <Text style={styles.result}>No result</Text>
+              )}
             </ScrollView>
           )}
         </View>

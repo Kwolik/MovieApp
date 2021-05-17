@@ -32,13 +32,12 @@ export default function MovieBaseList(props) {
     },
   });
 
-  const { currentUser } = Firebase.auth();
   const [popularFilms, SetPopularFilms] = React.useState([]);
   const [dataMovie, SetDataMovie] = React.useState([]);
 
   React.useEffect(() => {
     Firebase.database()
-      .ref(`/${currentUser.uid}/Favorites/Movie`)
+      .ref(`/${idUser}/Favorites/Movie`)
       .on("value", (snapshot) => {
         SetDataMovie(snapshot.val());
       });
@@ -47,13 +46,16 @@ export default function MovieBaseList(props) {
   React.useEffect(() => {
     const tab = [];
     Firebase.database()
-      .ref(`/${currentUser.uid}/Favorites/Movie`)
+      .ref(`/${idUser}/Favorites/Movie`)
       .on("child_added", (snapshot) => {
         tab.push(snapshot.val());
       });
 
     SetPopularFilms(tab);
-  }, [currentUser.uid ? currentUser.uid : "", dataMovie]);
+    return function cleanup() {
+      tab.length = 0;
+    };
+  }, [dataMovie]);
 
   const popularFilmsList = popularFilms.reverse().map((movie, index) => (
     <MovieBase
