@@ -11,6 +11,8 @@ import MovieBaseList from "./MyList/MovieBaseList";
 import SeriesBaseList from "./MyList/SeriesBaseList";
 import MovieFavoritesList from "./MyList/MovieFavoritesList";
 import SeriesFavoritesList from "./MyList/SeriesFavoritesList";
+import MovieWaitingList from "./MyList/MovieWaitingList";
+import SeriesWaitingList from "./MyList/SeriesWaitingList";
 import photo from "../assets/back.png";
 
 export default function MyListScreen({ navigation }) {
@@ -49,6 +51,8 @@ export default function MyListScreen({ navigation }) {
             <SeriesBaseList navigation={navigation} />
             <MovieFavoritesList navigation={navigation} />
             <SeriesFavoritesList navigation={navigation} />
+            <MovieWaitingList navigation={navigation} />
+            <SeriesWaitingList navigation={navigation} />
           </ScrollView>
         </View>
       </View>

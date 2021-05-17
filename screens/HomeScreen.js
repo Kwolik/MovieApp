@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }) {
       flex: 1,
     },
     body: {
-      marginTop: 40,
+      marginTop: 30,
     },
     name: {
       fontSize: 20,

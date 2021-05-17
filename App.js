@@ -13,8 +13,8 @@ import {
   CollectionStackScreen,
   SearchStackScreen,
   MyListStackScreen,
+  ProfileStackScreen,
 } from "./components/Navigation";
-import ProfileScreen from "./screens/ProfileScreen";
 import mainContext from "./context/mainContext";
 import Firebase from "./Firebase";
 import MenuScreen from "./screens/MenuScreen";
@@ -28,12 +28,14 @@ export default function App() {
   const [userLogged, setUserLogged] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [nameDatabase, SetNameDatabase] = useState("");
 
   useEffect(() => {
     const authListener = Firebase.auth().onAuthStateChanged((user) => {
       setUserLogged(user ? true : false);
       setIsLoading(false);
       setUserProfile(user);
+      global.idUser = user && user.uid;
     });
     return authListener;
   }, []);
@@ -44,9 +46,28 @@ export default function App() {
       .catch((error) => alert(error));
   };
 
-  const doSignup = async (email, password) => {
+  const doSignup = async (email, password, name) => {
     Firebase.auth()
       .createUserWithEmailAndPassword(email, password)
+      .catch((error) => alert(error));
+
+    SetNameDatabase(name);
+  };
+
+  const changeEmail = async (email) => {
+    Firebase.auth()
+      .currentUser.updateEmail(email)
+      .then(
+        Firebase.database().ref(`/${idUser}/User`).update({
+          email: email,
+        })
+      )
+      .catch((error) => alert(error));
+  };
+
+  const changePassword = async (password) => {
+    Firebase.auth()
+      .currentUser.updatePassword(password)
       .catch((error) => alert(error));
   };
 
@@ -58,8 +79,14 @@ export default function App() {
       handleLogin: (email, password) => {
         doLogin(email, password);
       },
-      handleSignup: (email, password) => {
-        doSignup(email, password);
+      handleSignup: (email, password, name) => {
+        doSignup(email, password, name);
+      },
+      handleEmail: (email) => {
+        changeEmail(email);
+      },
+      handlePassword: (password) => {
+        changePassword(password);
       },
     }),
     []
@@ -72,12 +99,20 @@ export default function App() {
       </View>
     );
   }
+
+  if (userProfile !== null && nameDatabase !== "") {
+    Firebase.database().ref(`/${userProfile.uid}/User`).set({
+      id: userProfile.uid,
+      email: userProfile.email,
+      name: nameDatabase,
+    });
+  }
   //Poprawic wielkość ikonek
   return (
     <mainContext.Provider value={mainC}>
       <NavigationContainer>
         {userLogged == false ? (
-          <AppStack.Navigator>
+          <AppStack.Navigator headerMode={"none"}>
             <AppStack.Screen name="Menu" component={MenuScreen} />
             <AppStack.Screen name="Login" component={LoginScreen} />
             <AppStack.Screen name="Signup" component={SignUpScreen} />
@@ -90,6 +125,7 @@ export default function App() {
               inactiveBackgroundColor: "black",
               inactiveTintColor: "#E1E1E1",
             }}
+            backBehavior={"initialRoute"}
           >
             <Tab.Screen
               name="Home"
@@ -138,7 +174,7 @@ export default function App() {
 
             <Tab.Screen
               name="Profile"
-              component={ProfileScreen}
+              component={ProfileStackScreen}
               options={{
                 tabBarLabel: "Profile",
                 tabBarIcon: ({ color }) => (

@@ -18,7 +18,6 @@ import Runner from "./Collections/Runner";
 import Troops from "./Collections/Troops";
 import Fast from "./Collections/Fast";
 import Bond from "./Collections/Bond";
-import AHS from "./Collections/AHS";
 import photo from "../assets/back.png";
 
 export default function CollectionsScreen({ navigation }) {
@@ -27,7 +26,7 @@ export default function CollectionsScreen({ navigation }) {
       flex: 1,
     },
     body: {
-      marginTop: 40,
+      marginTop: 30,
     },
     name: {
       fontSize: 20,
@@ -77,8 +76,6 @@ export default function CollectionsScreen({ navigation }) {
             <Troops navigation={navigation} />
             <Text style={styles.name}>Fast and Furious</Text>
             <Fast navigation={navigation} />
-            <Text style={styles.name}>American Horror Story</Text>
-            <AHS navigation={navigation} />
           </View>
         </View>
       </ScrollView>

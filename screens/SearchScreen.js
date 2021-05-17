@@ -19,6 +19,7 @@ export default function SearchScreen({ navigation }) {
   const styles = StyleSheet.create({
     container: {
       alignItems: "center",
+      marginTop: 40,
     },
     menu: {
       flex: 1,
@@ -32,7 +33,6 @@ export default function SearchScreen({ navigation }) {
       height: 50,
       fontSize: 18,
       fontWeight: "bold",
-      marginTop: 50,
     },
     icon: {
       margin: 2,
@@ -58,7 +58,12 @@ export default function SearchScreen({ navigation }) {
       height: 38,
     },
     scroll: {
-      marginBottom: 150,
+      marginBottom: 100,
+    },
+    result: {
+      color: "#F39B36",
+      fontSize: 24,
+      marginTop: 20,
     },
   });
 
@@ -111,8 +116,6 @@ export default function SearchScreen({ navigation }) {
     }
   };
 
-  //Dodac potem aktorow i zmienic przezroczystosc bialego tekstu jesli bedzie trzeba
-  // Jak starczy czasu dodac zeby ladowalo sie wiecej wynikow
   const movieList = movies.map((movie, index) => (
     <MovieListSearch
       key={index}
@@ -132,7 +135,12 @@ export default function SearchScreen({ navigation }) {
       // imdbid={movie.imdbID}
       type={value}
       plot={movie.overview}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      poster={
+        movie.poster_path
+          ? `https://image.tmdb.org/t/p/w342/${movie.poster_path}`
+          : null
+      }
+      screen={2}
       navigation={navigation}
     />
   ));
@@ -144,7 +152,11 @@ export default function SearchScreen({ navigation }) {
       name={people.name}
       type={people.known_for_department}
       // imdbid={people.imdbID}
-      poster={`https://image.tmdb.org/t/p/w342/${people.profile_path}`}
+      poster={
+        people.profile_path
+          ? `https://image.tmdb.org/t/p/w342/${people.profile_path}`
+          : null
+      }
       know={people.known_for}
       navigation={navigation}
     />
@@ -174,6 +186,7 @@ export default function SearchScreen({ navigation }) {
               onPress={() => {
                 SetValue("Movie");
                 setSearchQuery("");
+                SetMovies([]);
               }}
             >
               <MaterialCommunityIcons
@@ -195,6 +208,7 @@ export default function SearchScreen({ navigation }) {
               onPress={() => {
                 SetValue("TV Series");
                 setSearchQuery("");
+                SetMovies([]);
               }}
             >
               <Ionicons
@@ -216,6 +230,7 @@ export default function SearchScreen({ navigation }) {
               onPress={() => {
                 SetValue("Collection");
                 setSearchQuery("");
+                SetMovies([]);
               }}
             >
               <MaterialIcons
@@ -237,6 +252,7 @@ export default function SearchScreen({ navigation }) {
               onPress={() => {
                 SetValue("Actor");
                 setSearchQuery("");
+                SetMovies([]);
               }}
             >
               <Ionicons
@@ -256,14 +272,14 @@ export default function SearchScreen({ navigation }) {
           </View>
         </RadioButton.Group>
         <ScrollView style={styles.scroll}>
-          {searchQuery ? (
+          {searchQuery && movies.length !== 0 ? (
             value === "Actor" ? (
               actorList
             ) : (
               movieList
             )
           ) : (
-            <Text></Text>
+            <Text style={styles.result}>No results</Text>
           )}
         </ScrollView>
       </View>
