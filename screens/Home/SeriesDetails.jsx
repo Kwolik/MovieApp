@@ -19,6 +19,7 @@ import MovieList from "../../component/MovieList";
 import { showMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import photo from "../../assets/back.png";
+import noposter from "../../assets/noposter.png";
 
 export default function SeriesDetails({ route, navigation }) {
   const styles = StyleSheet.create({
@@ -471,7 +472,11 @@ export default function SeriesDetails({ route, navigation }) {
       year={movie.first_air_date}
       // imdbid={movie.imdbID}
       type={"TV Series"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      poster={
+        movie.poster_path
+          ? `https://image.tmdb.org/t/p/w342/${movie.poster_path}`
+          : null
+      }
       navigation={navigation}
       screen={route.params.screen}
       back={1}
@@ -512,7 +517,7 @@ export default function SeriesDetails({ route, navigation }) {
                   alt="poster"
                 />
               ) : (
-                <Image style={styles.poster} source={photo} alt="poster" />
+                <Image style={styles.poster} source={noposter} alt="poster" />
               )}
               {waitingList === 0 ? (
                 <TouchableOpacity

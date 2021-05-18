@@ -85,7 +85,11 @@ export default function CollectionDetails({ route, navigation }) {
       year={movie.release_date}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      poster={
+        movie.poster_path
+          ? `https://image.tmdb.org/t/p/w342/${movie.poster_path}`
+          : null
+      }
       navigation={navigation}
       screen={2}
     />

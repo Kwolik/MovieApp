@@ -65,7 +65,9 @@ export default function MovieWaitingList(props) {
       year={movie.year ? movie.year : "20??"}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster}`}
+      poster={
+        movie.poster ? `https://image.tmdb.org/t/p/w342/${movie.poster}` : null
+      }
       navigation={props.navigation}
     />
   ));

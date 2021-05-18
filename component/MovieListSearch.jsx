@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-import nophoto from "../assets/nophoto.png";
+import noposter from "../assets/noposter.png";
 
 export default function MovieListSearch(props) {
   const styles = StyleSheet.create({
@@ -69,7 +69,7 @@ export default function MovieListSearch(props) {
             alt="poster"
           />
         ) : (
-          <Image style={styles.poster} source={nophoto} alt="poster" />
+          <Image style={styles.poster} source={noposter} alt="poster" />
         )}
         <View style={styles.bottom}>
           <Text style={styles.title}>

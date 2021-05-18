@@ -19,6 +19,7 @@ import MovieList from "../../component/MovieList";
 import { showMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import photo from "../../assets/back.png";
+import noposter from "../../assets/noposter.png";
 
 export default function MovieDetails({ route, navigation }) {
   const styles = StyleSheet.create({
@@ -276,6 +277,7 @@ export default function MovieDetails({ route, navigation }) {
     } else {
       alert("Something wrong :(");
     }
+
     showMessage({
       message: "Add to Watchlist",
       description: "This movie has been added to your watchlist",
@@ -459,7 +461,11 @@ export default function MovieDetails({ route, navigation }) {
       year={movie.release_date}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      poster={
+        movie.poster_path
+          ? `https://image.tmdb.org/t/p/w342/${movie.poster_path}`
+          : null
+      }
       navigation={navigation}
       screen={route.params.screen}
       back={1}
@@ -500,7 +506,7 @@ export default function MovieDetails({ route, navigation }) {
                   alt="poster"
                 />
               ) : (
-                <Image style={styles.poster} source={photo} alt="poster" />
+                <Image style={styles.poster} source={noposter} alt="poster" />
               )}
               {waitingList === 0 ? (
                 <TouchableOpacity

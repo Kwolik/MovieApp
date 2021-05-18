@@ -28,7 +28,11 @@ export default function TopFilms({ navigation }) {
       year={movie.release_date ? movie.release_date : "20??"}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      poster={
+        movie.poster_path
+          ? `https://image.tmdb.org/t/p/w342/${movie.poster_path}`
+          : null
+      }
       navigation={navigation}
       screen={0}
     />

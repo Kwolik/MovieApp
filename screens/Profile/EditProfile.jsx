@@ -224,6 +224,7 @@ export default function EditProfile() {
                       genre2: genreTwo !== "Selected" && genreTwo,
                       genre3: genreThree !== "Selected" && genreThree,
                     });
+                  alert("All changes were saved");
                 }}
               >
                 <Text style={styles.textButton}>Save</Text>

@@ -66,7 +66,9 @@ export default function SeriesBaseList(props) {
       year={movie.year ? movie.year : "20??"}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster}`}
+      poster={
+        movie.poster ? `https://image.tmdb.org/t/p/w342/${movie.poster}` : null
+      }
       navigation={props.navigation}
     />
   ));
@@ -75,7 +77,7 @@ export default function SeriesBaseList(props) {
     <View style={styles.container}>
       {popularSeriesList[0] ? (
         <View style={styles.info}>
-          <Text style={styles.text}>Favorite Tv Series</Text>
+          <Text style={styles.text}>Favorite TV Series</Text>
           <TouchableOpacity
             onPress={() =>
               props.navigation.navigate("Favorites", {

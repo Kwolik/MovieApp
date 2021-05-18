@@ -30,8 +30,8 @@ export default function ProfileScreen({ navigation }) {
       backgroundColor: "#F39B36",
       width: 80,
       height: 80,
-      left: 10,
-      top: 50,
+      right: 10,
+      top: 40,
       borderRadius: 40,
       justifyContent: "center",
       alignItems: "center",
@@ -40,18 +40,26 @@ export default function ProfileScreen({ navigation }) {
       color: "#16161A",
       fontSize: 40,
     },
+    logout: {
+      color: "#F39B36",
+      fontSize: 32,
+    },
     textButton: {
       fontSize: 16,
       fontWeight: "bold",
       color: "#16161A",
     },
+    textLogout: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: "#F39B36",
+    },
     buttonLogout: {
       position: "absolute",
-      backgroundColor: "#F39B36",
       width: 80,
       height: 80,
-      right: 10,
-      top: 50,
+      left: 10,
+      top: 40,
       borderRadius: 40,
       justifyContent: "center",
       alignItems: "center",
@@ -169,7 +177,7 @@ export default function ProfileScreen({ navigation }) {
       .once("value", (snapshot) => {
         SetProfileInformation(snapshot.val());
       });
-  }, []);
+  }, [data]);
 
   React.useEffect(() => {
     Firebase.database()
@@ -269,18 +277,18 @@ export default function ProfileScreen({ navigation }) {
       <ImageBackground source={photo} style={styles.menu}>
         <ScrollView>
           <TouchableOpacity
+            style={styles.buttonLogout}
+            onPress={() => signOutUser()}
+          >
+            <MaterialCommunityIcons name="logout" style={styles.logout} />
+            <Text style={styles.textLogout}>Logout</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={styles.buttonEdit}
             onPress={() => navigation.navigate("EditProfile")}
           >
             <MaterialCommunityIcons name="account-edit" style={styles.edit} />
             <Text style={styles.textButton}>Edit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonLogout}
-            onPress={() => signOutUser()}
-          >
-            <MaterialCommunityIcons name="logout" style={styles.edit} />
-            <Text style={styles.textButton}>Logout</Text>
           </TouchableOpacity>
           <View style={styles.container}>
             {/* <Image style={styles.avatar} source={require("../assets/logo.png")} /> */}
@@ -390,7 +398,7 @@ export default function ProfileScreen({ navigation }) {
                       </View>
                     )
                 )}
-              {profileInformation &&
+              {/* {profileInformation &&
                 profileInformation.genre2 &&
                 GENRESLIST.map(
                   (genre) =>
@@ -400,7 +408,7 @@ export default function ProfileScreen({ navigation }) {
                         <Genre id={genre.id} navigation={navigation} />
                       </View>
                     )
-                )}
+                )} */}
               {/* {profileInformation &&
                 profileInformation.genre3 &&
                 GENRESLIST.map(

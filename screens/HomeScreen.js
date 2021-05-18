@@ -53,7 +53,7 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.body}>
             <Text style={styles.name}>Most Popular Films</Text>
             <PopularFilms navigation={navigation} />
-            <Text style={styles.name}>Most Popular TV Show</Text>
+            <Text style={styles.name}>Most Popular TV Shows</Text>
             <PopularSeries navigation={navigation} />
             <Text style={styles.name}>Upcoming Films</Text>
             <UpcomingFilms navigation={navigation} />
@@ -61,9 +61,9 @@ export default function HomeScreen({ navigation }) {
             <TopSeries navigation={navigation} />
             <Text style={styles.name}>Top Films</Text>
             <TopFilms navigation={navigation} />
-            <Text style={styles.name}>Trending TV series in this week</Text>
+            <Text style={styles.name}>Trending TV Series in this week</Text>
             <TrendingSeries navigation={navigation} />
-            <Text style={styles.name}>Trending films in this week</Text>
+            <Text style={styles.name}>Trending Films in this week</Text>
             <TrendingFilms navigation={navigation} />
             <Text style={styles.name}>Popular Persons</Text>
             <PopularPerson navigation={navigation} />

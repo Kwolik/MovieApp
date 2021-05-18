@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import noposter from "../../assets/noposter.png";
 
 export default function MovieBase(props) {
   const styles = StyleSheet.create({
@@ -47,11 +48,15 @@ export default function MovieBase(props) {
           })
         }
       >
-        <Image
-          style={styles.poster}
-          source={{ uri: props.poster }}
-          alt="poster"
-        />
+        {props.poster ? (
+          <Image
+            style={styles.poster}
+            source={{ uri: props.poster }}
+            alt="poster"
+          />
+        ) : (
+          <Image style={styles.poster} source={noposter} alt="poster" />
+        )}
         <View style={styles.bottom}>
           <Text style={styles.title}>
             {props.title && props.title.length > 21

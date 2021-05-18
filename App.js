@@ -63,11 +63,13 @@ export default function App() {
         })
       )
       .catch((error) => alert(error));
+    alert("Email changed");
   };
 
   const changePassword = async (password) => {
     Firebase.auth()
       .currentUser.updatePassword(password)
+      .then(alert("Password changed"))
       .catch((error) => alert(error));
   };
 

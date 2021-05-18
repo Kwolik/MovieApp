@@ -78,7 +78,9 @@ export default function WaitingList({ route, navigation }) {
       year={movie.year ? movie.year : "20??"}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster}`}
+      poster={
+        movie.poster ? `https://image.tmdb.org/t/p/w342/${movie.poster}` : null
+      }
       navigation={navigation}
       value={0}
     />
@@ -92,7 +94,9 @@ export default function WaitingList({ route, navigation }) {
       year={movie.year ? movie.year : "20??"}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster}`}
+      poster={
+        movie.poster ? `https://image.tmdb.org/t/p/w342/${movie.poster}` : null
+      }
       navigation={navigation}
     />
   ));

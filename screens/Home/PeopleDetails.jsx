@@ -124,7 +124,11 @@ export default function PeopleDetails({ route, navigation }) {
       year={movie.release_date}
       // imdbid={movie.imdbID}
       type={"Movie"}
-      poster={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
+      poster={
+        movie.poster_path
+          ? `https://image.tmdb.org/t/p/w342/${movie.poster_path}`
+          : null
+      }
       navigation={navigation}
       screen={route.params.number ? route.params.number : 0}
     />
@@ -198,7 +202,7 @@ export default function PeopleDetails({ route, navigation }) {
             )}
             {popularFilms.length !== 0 && (
               <View>
-                <Text style={styles.knowFor}>Know for</Text>
+                <Text style={styles.knowFor}>Known for</Text>
                 <ScrollView horizontal={true}>{popularFilmsList}</ScrollView>
               </View>
             )}
