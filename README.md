@@ -1,12 +1,12 @@
 # MovieApp
 
-<span align="center"><img width="200px" height="360px" src="docs/menu.PNG"></span>
-<span align="center"><img width="200px" height="360px" src="docs/moviedatail.PNG"></span>
+<span align="center"><img width="380px" height="780px" src="docs/menu.PNG"></span>
+<span align="center"><img width="380px" height="780px" src="docs/moviedatail.PNG"></span>
 
 ## Use Application
 To check the application, just download Expo Go to your phone and scan the code below. 
 
-<span align="center"><img width="200px" height="200px" src="docs/qr.PNG"></span>
+<span align="center"><img width="150px" height="160px" src="docs/qr.PNG"></span>
 
 # Documentation
 ----------------------------------------------------------------------------------------------
