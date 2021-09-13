@@ -65,7 +65,7 @@ export default function SeriesBaseList(props) {
       title={movie.title}
       year={movie.year ? movie.year : "20??"}
       // imdbid={movie.imdbID}
-      type={"Movie"}
+      type={"TV Series"}
       poster={
         movie.poster ? `https://image.tmdb.org/t/p/w342/${movie.poster}` : null
       }
