@@ -270,7 +270,7 @@ export default function SeriesDetails({ route, navigation }) {
     if (sec < 10) sec = "0" + sec;
 
     setCurrentDate(
-      date + "" + month + "" + year + "" + hours + "" + min + "" + sec
+      year + "" + month + "" + date + "" + hours + "" + min + "" + sec
     );
   }
 
