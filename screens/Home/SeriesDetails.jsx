@@ -10,7 +10,7 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
-import LinearGradient from "expo-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import Firebase from "../../Firebase.js";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
