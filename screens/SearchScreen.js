@@ -244,7 +244,7 @@ export default function SearchScreen({ navigation }) {
                   textAlignVertical: "center",
                 }}
               >
-                Collecion
+                Collection
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

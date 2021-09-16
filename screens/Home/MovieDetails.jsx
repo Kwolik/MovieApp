@@ -31,7 +31,7 @@ export default function MovieDetails({ route, navigation }) {
       marginTop: 22,
     },
     imageBack: {
-      width: "100%",
+      width: "100%", //zmienic witdh na podobne do tego co jest w Cinema.jsx
       height: 256,
       opacity: 0.8,
     },

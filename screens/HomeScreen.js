@@ -7,6 +7,7 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
+import Cinema from "../screens/Home/Cinema";
 import PopularFilms from "../screens/Home/PopularFilms";
 import PopularSeries from "../screens/Home/PopularSeries";
 import UpcomingFilms from "../screens/Home/UpcomingFilms";
@@ -21,9 +22,6 @@ export default function HomeScreen({ navigation }) {
   const styles = StyleSheet.create({
     menu: {
       flex: 1,
-    },
-    body: {
-      marginTop: 30,
     },
     name: {
       fontSize: 20,
@@ -50,7 +48,8 @@ export default function HomeScreen({ navigation }) {
     <ImageBackground source={photo} style={styles.menu}>
       <ScrollView>
         <View style={{ display: visibility }}>
-          <View style={styles.body}>
+          <View>
+            <Cinema navigation={navigation} />
             <Text style={styles.name}>Most Popular Films</Text>
             <PopularFilms navigation={navigation} />
             <Text style={styles.name}>Most Popular TV Shows</Text>
