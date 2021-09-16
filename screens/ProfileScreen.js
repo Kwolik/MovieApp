@@ -386,42 +386,41 @@ export default function ProfileScreen({ navigation }) {
                 )}
               </TouchableOpacity>
             </View>
-            <View>
-              {profileInformation &&
-                profileInformation.genre1 &&
-                GENRESLIST.map(
-                  (genre) =>
-                    profileInformation.genre1 === genre.name && (
-                      <View key={1} style={styles.moviesGenre}>
-                        <Text style={styles.title}>{genre.name}</Text>
-                        <Genre id={genre.id} navigation={navigation} />
-                      </View>
-                    )
-                )}
-              {/* {profileInformation &&
-                profileInformation.genre2 &&
-                GENRESLIST.map(
-                  (genre) =>
-                    profileInformation.genre2 === genre.name && (
-                      <View key={2} style={styles.moviesGenre}>
-                        <Text style={styles.title}>{genre.name}</Text>
-                        <Genre id={genre.id} navigation={navigation} />
-                      </View>
-                    )
-                )} */}
-              {/* {profileInformation &&
-                profileInformation.genre3 &&
-                GENRESLIST.map(
-                  (genre) =>
-                    profileInformation.genre3 === genre.name && (
-                      <View key={3} style={styles.moviesGenre}>
-                        <Text style={styles.title}>{genre.name}</Text>
-                        <Genre id={genre.id} navigation={navigation}/>
-                      </View>
-                    )
-                )} */}
-            </View>
           </View>
+          {/* Trzeba zrobić sprawdzanie aktualizacje po zmianie gatunku list filmów */}
+          {profileInformation &&
+            profileInformation.genre1 &&
+            GENRESLIST.map(
+              (genre) =>
+                profileInformation.genre1 === genre.name && (
+                  <View key={1} style={styles.moviesGenre}>
+                    <Text style={styles.title}>{genre.name}</Text>
+                    <Genre id={genre.id} navigation={navigation} />
+                  </View>
+                )
+            )}
+          {profileInformation &&
+            profileInformation.genre2 &&
+            GENRESLIST.map(
+              (genre) =>
+                profileInformation.genre2 === genre.name && (
+                  <View key={2} style={styles.moviesGenre}>
+                    <Text style={styles.title}>{genre.name}</Text>
+                    <Genre id={genre.id} navigation={navigation} />
+                  </View>
+                )
+            )}
+            {profileInformation &&
+            profileInformation.genre3 &&
+            GENRESLIST.map(
+              (genre) =>
+                profileInformation.genre3 === genre.name && (
+                  <View key={3} style={styles.moviesGenre}>
+                    <Text style={styles.title}>{genre.name}</Text>
+                    <Genre id={genre.id} navigation={navigation} />
+                  </View>
+                )
+            )}
         </ScrollView>
       </ImageBackground>
     );
