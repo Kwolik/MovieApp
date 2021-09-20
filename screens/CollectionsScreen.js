@@ -11,11 +11,11 @@ import {
 import { RadioButton } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import OneCollectionMovies from "./Collections/OneCollectionMovies";
-import { ALLCOLLECTIONS } from "./Collections/CollectionMovies";
-import OneCollectionSeries from "./Collections/OneCollectionSeries";
-import { ALLCOLLECTIONSERIES } from "./Collections/CollectionSeries";
-import Rings from "./Collections/Rings";
+import OneCollectionMovies from "./collections/OneCollectionMovies";
+import { ALLCOLLECTIONS } from "./collections/CollectionMovies";
+import OneCollectionSeries from "./collections/OneCollectionSeries";
+import { ALLCOLLECTIONSERIES } from "./collections/CollectionSeries";
+import Rings from "./collections/Rings";
 import photo from "../assets/back.png";
 
 export default function CollectionsScreen({ navigation }) {
@@ -38,11 +38,10 @@ export default function CollectionsScreen({ navigation }) {
       flexWrap: "wrap",
     },
     option: {
+      width: "48%",
       flexDirection: "row",
-      height: 42,
       alignItems: "center",
-      marginLeft: 40,
-      marginRight: 40,
+      justifyContent: "center",
     },
     icon: {
       fontSize: 28,
