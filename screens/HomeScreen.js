@@ -16,6 +16,7 @@ import TopFilms from "../screens/Home/TopFilms";
 import TrendingSeries from "../screens/Home/TrendingSeries";
 import TrendingFilms from "../screens/Home/TrendingFilms";
 import PopularPerson from "../screens/Home/PopularPerson";
+import PopularVideo from "../screens/Home/PopularVideo";
 import photo from "../assets/back.png";
 
 export default function HomeScreen({ navigation }) {
@@ -39,7 +40,7 @@ export default function HomeScreen({ navigation }) {
     setTimeout(() => {
       SetLoad(false);
       SetVisibility("flex");
-    }, 900);
+    }, 1200);
   }
 
   componentDidMount();
@@ -56,14 +57,15 @@ export default function HomeScreen({ navigation }) {
             <PopularSeries navigation={navigation} />
             <Text style={styles.name}>Upcoming Films</Text>
             <UpcomingFilms navigation={navigation} />
-            <Text style={styles.name}>Top TV Series</Text>
-            <TopSeries navigation={navigation} />
-            <Text style={styles.name}>Top Films</Text>
-            <TopFilms navigation={navigation} />
+            <PopularVideo navigation={navigation} />
             <Text style={styles.name}>Trending TV Series in this week</Text>
             <TrendingSeries navigation={navigation} />
             <Text style={styles.name}>Trending Films in this week</Text>
             <TrendingFilms navigation={navigation} />
+            <Text style={styles.name}>Top TV Series</Text>
+            <TopSeries navigation={navigation} />
+            <Text style={styles.name}>Top Films</Text>
+            <TopFilms navigation={navigation} />
             <Text style={styles.name}>Popular Persons</Text>
             <PopularPerson navigation={navigation} />
           </View>
