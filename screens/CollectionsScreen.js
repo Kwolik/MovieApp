@@ -6,22 +6,21 @@ import {
   ScrollView,
   ImageBackground,
   ActivityIndicator,
-  TouchableOpacity,
 } from "react-native";
-import { RadioButton } from "react-native-paper";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import OneCollectionMovies from "./collections/OneCollectionMovies";
-import { ALLCOLLECTIONS } from "./collections/CollectionMovies";
-import OneCollectionSeries from "./collections/OneCollectionSeries";
-import { ALLCOLLECTIONSERIES } from "./collections/CollectionSeries";
-import Rings from "./collections/Rings";
+import { ALLCOLLECTIONS } from "./collections/CollectionMoviesList";
+import { ALLCOLLECTIONSERIES } from "./collections/CollectionSeriesList";
+import CollectionMovies from "./collections/CollectionMovies";
+import CollectionSeries from "./collections/CollectionSeries";
 import photo from "../assets/back.png";
 
 export default function CollectionsScreen({ navigation }) {
   const styles = StyleSheet.create({
     menu: {
       flex: 1,
+    },
+    border: {
+      margin: 10,
+      flexDirection: "row",
     },
     name: {
       fontSize: 20,
@@ -30,28 +29,18 @@ export default function CollectionsScreen({ navigation }) {
       marginTop: 10,
       marginLeft: 10,
     },
-    radioButton: {
-      marginTop: 32,
-      marginBottom: 10,
-      justifyContent: "space-between",
-      flexDirection: "row",
-      flexWrap: "wrap",
+    movies: {
+      margin: 5,
+      width: "48%", //zmienić pozniej
     },
-    option: {
-      width: "48%",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    icon: {
-      fontSize: 28,
-      margin: 10,
+    series: {
+      margin: 5,
+      width: "48%", //zmienić pozniej
     },
   });
 
   const [load, SetLoad] = React.useState(true);
   const [visibility, SetVisibility] = React.useState("none");
-  const [value, SetValue] = React.useState("Movie");
 
   function componentDidMount() {
     setTimeout(() => {
@@ -64,80 +53,32 @@ export default function CollectionsScreen({ navigation }) {
 
   const collectionList = ALLCOLLECTIONS.map((movie, index) => (
     <View key={index}>
-      <Text style={styles.name}>{movie.name}</Text>
-      <OneCollectionMovies navigation={navigation} id={movie.id} />
+      <CollectionMovies id={movie.id} />
     </View>
   ));
 
   const seriesList = ALLCOLLECTIONSERIES.map((series, index) => (
     <View key={index}>
-      <Text style={styles.name}>{series.name}</Text>
-      <OneCollectionSeries navigation={navigation} id={series.id} />
+      <CollectionSeries id={series.id} />
     </View>
   ));
 
   return (
     <ImageBackground source={photo} style={styles.menu}>
-      <RadioButton.Group
-        onValueChange={(newValue) => SetValue(newValue)}
-        value={value}
-      >
-        <View style={styles.radioButton}>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={() => {
-              SetValue("Movie");
-            }}
-          >
-            <MaterialCommunityIcons
-              name="movie-open"
-              style={styles.icon}
-              color={value === "Movie" ? "#F39B36" : "#E1E1E1"}
-            />
-            <Text
-              style={{
-                color: value === "Movie" ? "#F39B36" : "#E1E1E1",
-                fontSize: 18,
-              }}
-            >
-              Movie
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={() => {
-              SetValue("TV Series");
-            }}
-          >
-            <Ionicons
-              name="ios-tv"
-              style={styles.icon}
-              color={value === "TV Series" ? "#F39B36" : "#E1E1E1"}
-            />
-            <Text
-              style={{
-                color: value === "TV Series" ? "#F39B36" : "#E1E1E1",
-                textAlignVertical: "center",
-                fontSize: 18,
-              }}
-            >
-              TV Series
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </RadioButton.Group>
-      <ScrollView>
-        <View style={{ display: visibility }}>
-          <View style={{ display: value === "Movie" ? "flex" : "none" }}>
-            <Text style={styles.name}>The Lord of the Rings and Hobbit</Text>
-            <Rings navigation={navigation} />
-            {collectionList}
+      <View style={{ display: visibility }}>
+        <ScrollView>
+          <View style={styles.border}>
+            <View style={styles.movies}>
+              <Text style={styles.name}>Filmy</Text>
+              {collectionList}
+            </View>
+            <View style={styles.series}>
+              <Text style={styles.name}>Seriale</Text>
+              {seriesList}
+            </View>
           </View>
-          <View style={{ display: value === "TV Series" ? "flex" : "none" }}>
-            {seriesList}
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
       {load && (
         <ActivityIndicator
           style={{
