@@ -25,11 +25,20 @@ export default function PopularPerson({ navigation }) {
       key={index}
       id={people.id}
       name={people.name}
-      title={people.known_for[0].title}
+      title={
+        people.known_for[0].title
+          ? people.known_for[0].title
+          : people.known_for[0].name
+      }
       // imdbid={people.imdbID}
-      poster={
+      profile={
         people.profile_path
           ? `https://image.tmdb.org/t/p/w342/${people.profile_path}`
+          : null
+      }
+      poster={
+        people.known_for[0].poster_path
+          ? `https://image.tmdb.org/t/p/w342/${people.known_for[0].poster_path}`
           : null
       }
       navigation={navigation}
