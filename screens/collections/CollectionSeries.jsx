@@ -1,82 +1,49 @@
-export const ALLCOLLECTIONSERIES = [
-  {
-    id: 46648,
-    name: "True Detective",
-  },
-  {
-    id: 42009,
-    name: "Black Mirror",
-  },
-  {
-    id: 1413,
-    name: "American Horror Story",
-  },
-  {
-    id: 64513,
-    name: "American Crime Story",
-  },
-  {
-    id: 60622,
-    name: "Fargo",
-  },
-  {
-    id: 75191,
-    name: "The Terror",
-  },
-  {
-    id: 78950,
-    name: "Miracle Workers",
-  },
-  {
-    id: 64387,
-    name: "The Girlfriend Experience",
-  },
-  {
-    id: 39852,
-    name: "The Sinner",
-  },
-  {
-    id: 61555,
-    name: "The Missing",
-  },
-  {
-    id: 86735,
-    name: "Baptiste",
-  },
-  {
-    id: 72597,
-    name: "Manhunt",
-  },
-  {
-    id: 67752,
-    name: "Channel Zero",
-  },
-  {
-    id: 70128,
-    name: "Genius",
-  },
-  {
-    id: 65784,
-    name: "Slasher",
-  },
-  {
-    id: 87428,
-    name: "Why Women Kill",
-  },
-  {
-    id: 102316,
-    name: "Love Life",
-  },
-  {
-    id: 72581,
-    name: "Room 104",
-  },
-  {
-    id: 6357,
-    name: "The Twilight Zone",
-  },
-  {
-    id: 91602,
-    name: "Modern Love",
-  },
-];
+import React from "react";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import noposter from "../../assets/noposter.png";
+
+export default function CollectionSeries(props) {
+  const styles = StyleSheet.create({
+    menu: {
+      margin: 10,
+    },
+    poster: {
+      width: 160,
+      height: 256,
+      borderRadius: 10,
+    },
+  });
+
+  const [collection, SetCollection] = React.useState([]);
+
+  const getMovieRequest = async () => {
+    const url = `https://api.themoviedb.org/3/tv/${props.id}?api_key=730f5fc8cccd28b439fbcbac1988359b&language=en-US`;
+
+    const response = await fetch(url);
+    const responseJson = await response.json();
+
+    if (responseJson) {
+      SetCollection(responseJson);
+    }
+  };
+
+  React.useEffect(() => {
+    getMovieRequest();
+  }, []);
+
+  return (
+    <View style={styles.menu}>
+      <TouchableOpacity>
+        {collection.poster_path ? (
+          <Image
+            style={styles.poster}
+            source={{ uri: `https://image.tmdb.org/t/p/w342/${collection.poster_path}` }}
+            alt="poster"
+          />
+        ) : (
+          <Image style={styles.poster} source={noposter} alt="poster" />
+        )}
+      </TouchableOpacity>
+    </View>
+  );
+}
