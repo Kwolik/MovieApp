@@ -47,34 +47,36 @@ export default function Cinema({ navigation }) {
     getMovieRequest();
   }, []);
 
-  const popularFilmsList = popularFilms.map((movie, index) => (
-    <View
-      key={index}
-      style={{
-        width: windowWidth,
-        height: 256,
-      }}
-    >
-      <CinemaList
-        id={movie.id}
-        title={movie.title}
-        year={movie.release_date ? movie.release_date : "20??"}
-        // imdbid={movie.imdbID}
-        type={"Movie"}
-        poster={
-          movie.backdrop_path
-            ? `https://image.tmdb.org/t/p/w1066_and_h600_bestv2/${movie.backdrop_path}`
-            : null
-        }
-        rate={movie.vote_average}
-        navigation={navigation}
-        wtd={windowWidth}
-      />
-    </View>
-  ));
+  const popularFilmsList = popularFilms.map(
+    (movie, index) =>
+      index < 12 && (
+        <View
+          key={index}
+          style={{
+            width: windowWidth,
+            height: 256,
+          }}
+        >
+          <CinemaList
+            id={movie.id}
+            title={movie.title}
+            year={movie.release_date ? movie.release_date : "20??"}
+            // imdbid={movie.imdbID}
+            type={"Movie"}
+            poster={
+              movie.backdrop_path
+                ? `https://image.tmdb.org/t/p/w1066_and_h600_bestv2/${movie.backdrop_path}`
+                : null
+            }
+            rate={movie.vote_average}
+            wtd={windowWidth}
+          />
+        </View>
+      )
+  );
 
   return (
-    <View style={{marginBottom: -20}}>
+    <View style={{ marginBottom: -20 }}>
       <ScrollView
         horizontal
         pagingEnabled
@@ -105,10 +107,12 @@ export default function Cinema({ navigation }) {
             extrapolate: "clamp",
           });
           return (
-            <Animated.View
-              key={imageIndex}
-              style={[styles.normalDot, { width }]}
-            />
+            imageIndex < 12 && (
+              <Animated.View
+                key={imageIndex}
+                style={[styles.normalDot, { width }]}
+              />
+            )
           );
         })}
       </View>

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 import noposter from "../../assets/noposter.png";
 
 export default function CinemaList(props) {
@@ -39,7 +39,7 @@ export default function CinemaList(props) {
   });
 
   return (
-    <TouchableOpacity>
+    <View>
       {props.poster ? (
         <Image
           style={styles.poster}
@@ -57,6 +57,6 @@ export default function CinemaList(props) {
           <Text style={styles.rate}>{props.rate !== 0 && props.rate}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
