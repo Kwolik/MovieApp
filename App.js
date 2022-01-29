@@ -112,7 +112,7 @@ export default function App() {
   //Poprawic wielkość ikonek
   return (
     <mainContext.Provider value={mainC}>
-      <NavigationContainer>
+      <NavigationContainer stickyNav={true}>
         {userLogged == false ? (
           <AppStack.Navigator headerMode={"none"}>
             <AppStack.Screen name="Menu" component={MenuScreen} />
@@ -126,6 +126,9 @@ export default function App() {
               activeBackgroundColor: "black",
               inactiveBackgroundColor: "black",
               inactiveTintColor: "#E1E1E1",
+              style: {
+                borderTopColor: "black",
+              },
             }}
             backBehavior={"initialRoute"}
           >
