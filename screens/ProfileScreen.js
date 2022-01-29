@@ -387,7 +387,7 @@ export default function ProfileScreen({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
-          {/* Trzeba zrobić sprawdzanie aktualizacje po zmianie gatunku list filmów */}
+          {/* Trzeba zrobić sprawdzanie/aktualizacje po zmianie gatunku list filmów */}
           {profileInformation &&
             profileInformation.genre1 &&
             GENRESLIST.map(
