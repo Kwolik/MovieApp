@@ -28,7 +28,6 @@ export default function MovieDetails({ route, navigation }) {
     },
     centerImage: {
       alignItems: "center",
-      marginTop: 22,
     },
     imageBack: {
       width: "100%", //zmienic witdh na podobne do tego co jest w Cinema.jsx

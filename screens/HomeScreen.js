@@ -6,6 +6,7 @@ import {
   ScrollView,
   ImageBackground,
   ActivityIndicator,
+  StatusBar
 } from "react-native";
 import Cinema from "../screens/Home/Cinema";
 import PopularFilms from "../screens/Home/PopularFilms";
@@ -47,6 +48,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ImageBackground source={photo} style={styles.menu}>
+    <StatusBar translucent = {false}/>
       <ScrollView>
         <View style={{ display: visibility }}>
           <View>

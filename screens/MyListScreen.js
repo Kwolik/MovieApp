@@ -21,11 +21,8 @@ export default function MyListScreen({ navigation }) {
       flex: 1,
     },
     black: {
-      marginTop: 20,
       marginBottom: 100,
-    },
-    body: {
-      marginTop: 30,
+      marginTop: 10,
     },
   });
 
@@ -44,7 +41,7 @@ export default function MyListScreen({ navigation }) {
   return (
     <ImageBackground source={photo} style={styles.menu}>
       <View style={{ display: visibility }}>
-        <View style={styles.body}>
+        <View>
           <MenuMyList navigation={navigation} />
           <ScrollView style={styles.black}>
             <MovieBaseList navigation={navigation} />

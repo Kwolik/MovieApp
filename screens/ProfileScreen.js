@@ -20,7 +20,7 @@ export default function ProfileScreen({ navigation }) {
     container: {
       flex: 1,
       alignItems: "center",
-      marginTop: 130,
+      marginTop: 80,
     },
     menu: {
       flex: 1,
@@ -31,7 +31,7 @@ export default function ProfileScreen({ navigation }) {
       width: 80,
       height: 80,
       right: 10,
-      top: 40,
+      top: 10,
       borderRadius: 40,
       justifyContent: "center",
       alignItems: "center",
@@ -59,7 +59,7 @@ export default function ProfileScreen({ navigation }) {
       width: 80,
       height: 80,
       left: 10,
-      top: 40,
+      top: 10,
       borderRadius: 40,
       justifyContent: "center",
       alignItems: "center",

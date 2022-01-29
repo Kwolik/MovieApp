@@ -26,7 +26,6 @@ export default function CollectionsScreen({ navigation }) {
       fontSize: 20,
       color: "#F39B36",
       fontWeight: "bold",
-      marginTop: 10,
       marginLeft: 10,
     },
     movies: {

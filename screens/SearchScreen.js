@@ -19,7 +19,7 @@ export default function SearchScreen({ navigation }) {
   const styles = StyleSheet.create({
     container: {
       alignItems: "center",
-      marginTop: 40,
+      marginTop: 10,
     },
     menu: {
       flex: 1,
@@ -46,16 +46,17 @@ export default function SearchScreen({ navigation }) {
       alignItems: "center",
     },
     radioButton: {
-      marginTop: 2,
       justifyContent: "center",
       flexDirection: "row",
       flexWrap: "wrap",
+      // borderWidth: 2,
+      // borderColor: "blue",
     },
     option: {
       flexDirection: "row",
-      padding: 2,
-      margin: 4,
-      height: 38,
+      padding: 5,
+      // borderWidth: 2,
+      // borderColor: "red",
     },
     scroll: {
       marginBottom: 100,

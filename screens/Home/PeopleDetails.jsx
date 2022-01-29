@@ -19,9 +19,6 @@ export default function PeopleDetails({ route, navigation }) {
     menu: {
       flex: 1,
     },
-    container: {
-      marginTop: 20,
-    },
     mainInfo: {
       flexDirection: "row",
     },
@@ -138,75 +135,73 @@ export default function PeopleDetails({ route, navigation }) {
     return (
       <ImageBackground source={photo} style={styles.menu}>
         <ScrollView style={styles.menu}>
-          <View style={styles.container}>
-            <View style={styles.mainInfo}>
-              <View>
-                {popularPerson.profile_path ? (
-                  <Image
-                    style={styles.poster}
-                    source={{ uri: pathImage }}
-                    alt="poster"
-                  />
-                ) : (
-                  <Image style={styles.poster} source={nophoto} alt="poster" />
-                )}
-              </View>
-              <View style={styles.description}>
-                <Text style={styles.name}>{popularPerson.name}</Text>
-                <Text style={styles.birthday}>
-                  {popularPerson.known_for_department}
-                </Text>
-                {popularPerson.birthday && (
-                  <Text style={styles.birthday}>
-                    {popularPerson.birthday && popularPerson.deathday
-                      ? popularPerson.deathday.substring(0, 4) -
-                        popularPerson.birthday.substring(0, 4) +
-                        " "
-                      : currentYear -
-                        popularPerson.birthday.substring(0, 4) +
-                        " "}
-                    years
-                  </Text>
-                )}
-                {popularPerson.imdb_id ? (
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://www.imdb.com/name/" + popularPerson.imdb_id
-                      )
-                    }
-                  >
-                    <Text style={styles.textimdb}>IMDB</Text>
-                  </TouchableOpacity>
-                ) : (
-                  <Text></Text>
-                )}
-              </View>
+          <View style={styles.mainInfo}>
+            <View>
+              {popularPerson.profile_path ? (
+                <Image
+                  style={styles.poster}
+                  source={{ uri: pathImage }}
+                  alt="poster"
+                />
+              ) : (
+                <Image style={styles.poster} source={nophoto} alt="poster" />
+              )}
             </View>
-            {popularPerson.biography &&
-            popularPerson.biography.length > 182 &&
-            over === 0 ? (
-              <View style={styles.biography}>
-                <Text style={styles.text}>
-                  {popularPerson.biography.substring(0, 180) + "..."}
+            <View style={styles.description}>
+              <Text style={styles.name}>{popularPerson.name}</Text>
+              <Text style={styles.birthday}>
+                {popularPerson.known_for_department}
+              </Text>
+              {popularPerson.birthday && (
+                <Text style={styles.birthday}>
+                  {popularPerson.birthday && popularPerson.deathday
+                    ? popularPerson.deathday.substring(0, 4) -
+                      popularPerson.birthday.substring(0, 4) +
+                      " "
+                    : currentYear -
+                      popularPerson.birthday.substring(0, 4) +
+                      " "}
+                  years
                 </Text>
-                <TouchableOpacity onPress={() => SetOver(1)}>
-                  <Text style={styles.readMore}>Read more</Text>
+              )}
+              {popularPerson.imdb_id ? (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    Linking.openURL(
+                      "https://www.imdb.com/name/" + popularPerson.imdb_id
+                    )
+                  }
+                >
+                  <Text style={styles.textimdb}>IMDB</Text>
                 </TouchableOpacity>
-              </View>
-            ) : (
-              <View style={styles.biography}>
-                <Text style={styles.text}>{popularPerson.biography}</Text>
-              </View>
-            )}
-            {popularFilms.length !== 0 && (
-              <View>
-                <Text style={styles.knowFor}>Known for</Text>
-                <ScrollView horizontal={true}>{popularFilmsList}</ScrollView>
-              </View>
-            )}
+              ) : (
+                <Text></Text>
+              )}
+            </View>
           </View>
+          {popularPerson.biography &&
+          popularPerson.biography.length > 182 &&
+          over === 0 ? (
+            <View style={styles.biography}>
+              <Text style={styles.text}>
+                {popularPerson.biography.substring(0, 180) + "..."}
+              </Text>
+              <TouchableOpacity onPress={() => SetOver(1)}>
+                <Text style={styles.readMore}>Read more</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={styles.biography}>
+              <Text style={styles.text}>{popularPerson.biography}</Text>
+            </View>
+          )}
+          {popularFilms.length !== 0 && (
+            <View>
+              <Text style={styles.knowFor}>Known for</Text>
+              <ScrollView horizontal={true}>{popularFilmsList}</ScrollView>
+            </View>
+          )}
         </ScrollView>
       </ImageBackground>
     );
