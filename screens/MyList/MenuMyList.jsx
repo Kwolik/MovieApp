@@ -5,16 +5,14 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 export default function MenuMyList(props) {
   const styles = StyleSheet.create({
     mainBannner: {
-      flex: 1,
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: "center",
-      marginTop: 10,
     },
     desc: {
       flexDirection: "row",
       alignItems: "center",
-      padding: 4,
+      padding: 5,
     },
     text: {
       color: "#E1E1E1",

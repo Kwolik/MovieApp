@@ -21,11 +21,11 @@ export default function MyListScreen({ navigation }) {
       flex: 1,
     },
     black: {
-      marginTop: 50,
-      marginBottom: 25,
+      marginTop: 20,
+      marginBottom: 100,
     },
     body: {
-      marginTop: 25,
+      marginTop: 30,
     },
   });
 
