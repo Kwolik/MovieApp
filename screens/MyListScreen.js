@@ -1,11 +1,11 @@
 import React from "react";
 import {
   View,
-  StyleSheet,
   ScrollView,
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
+import styles from "./MyListScreen.styles";
 import MenuMyList from "./MyList/MenuMyList";
 import MovieBaseList from "./MyList/MovieBaseList";
 import SeriesBaseList from "./MyList/SeriesBaseList";
@@ -16,16 +16,6 @@ import SeriesWaitingList from "./MyList/SeriesWaitingList";
 import photo from "../assets/back.png";
 
 export default function MyListScreen({ navigation }) {
-  const styles = StyleSheet.create({
-    menu: {
-      flex: 1,
-    },
-    black: {
-      marginBottom: 100,
-      marginTop: 10,
-    },
-  });
-
   const [load, SetLoad] = React.useState(true);
   const [visibility, SetVisibility] = React.useState("none");
 
@@ -40,6 +30,9 @@ export default function MyListScreen({ navigation }) {
 
   return (
     <ImageBackground source={photo} style={styles.menu}>
+      {load && (
+        <ActivityIndicator style={styles.load} color={"#F39B36"} size={100} />
+      )}
       <View style={{ display: visibility }}>
         <View>
           <MenuMyList navigation={navigation} />
@@ -53,19 +46,6 @@ export default function MyListScreen({ navigation }) {
           </ScrollView>
         </View>
       </View>
-      {load && (
-        <ActivityIndicator
-          style={{
-            position: "absolute",
-            left: "50%",
-            right: "50%",
-            top: "50%",
-            bottom: "50%",
-          }}
-          color={"#F39B36"}
-          size={100}
-        />
-      )}
     </ImageBackground>
   );
 }

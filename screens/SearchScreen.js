@@ -1,12 +1,12 @@
 import React from "react";
 import {
   View,
-  StyleSheet,
   Text,
   TouchableOpacity,
   ScrollView,
   ImageBackground,
 } from "react-native";
+import styles from "./SearchScreen.styles";
 import { RadioButton, Searchbar } from "react-native-paper";
 import MovieListSearch from "../component/MovieListSearch";
 import ActorListSearch from "../component/ActorListSearch";
@@ -16,58 +16,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import photo from "../assets/back.png";
 
 export default function SearchScreen({ navigation }) {
-  const styles = StyleSheet.create({
-    container: {
-      alignItems: "center",
-      marginTop: 10,
-    },
-    menu: {
-      flex: 1,
-    },
-    search: {
-      width: "90%",
-      borderWidth: 2,
-      borderColor: "white",
-      backgroundColor: "white",
-      borderRadius: 10,
-      height: 50,
-      fontSize: 18,
-      fontWeight: "bold",
-    },
-    icon: {
-      margin: 2,
-      fontSize: 24,
-      marginTop: 5,
-    },
-    icon2: {
-      margin: 2,
-      marginTop: 4,
-      fontSize: 28,
-      alignItems: "center",
-    },
-    radioButton: {
-      justifyContent: "center",
-      flexDirection: "row",
-      flexWrap: "wrap",
-      // borderWidth: 2,
-      // borderColor: "blue",
-    },
-    option: {
-      flexDirection: "row",
-      padding: 5,
-      // borderWidth: 2,
-      // borderColor: "red",
-    },
-    scroll: {
-      marginBottom: 100,
-    },
-    result: {
-      color: "#F39B36",
-      fontSize: 24,
-      marginTop: 20,
-    },
-  });
-
   const [value, SetValue] = React.useState("Movie");
   const [searchQuery, setSearchQuery] = React.useState("");
   const [movies, SetMovies] = React.useState([]);

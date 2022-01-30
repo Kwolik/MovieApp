@@ -1,12 +1,12 @@
 import React from "react";
 import {
   View,
-  StyleSheet,
   Text,
   ScrollView,
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
+import styles from "./CollectionsScreen.styles";
 import { ALLCOLLECTIONS } from "./collections/CollectionMoviesList";
 import { ALLCOLLECTIONSERIES } from "./collections/CollectionSeriesList";
 import CollectionMovies from "./collections/CollectionMovies";
@@ -14,30 +14,6 @@ import CollectionSeries from "./collections/CollectionSeries";
 import photo from "../assets/back.png";
 
 export default function CollectionsScreen({ navigation }) {
-  const styles = StyleSheet.create({
-    menu: {
-      flex: 1,
-    },
-    border: {
-      margin: 10,
-      flexDirection: "row",
-    },
-    name: {
-      fontSize: 20,
-      color: "#F39B36",
-      fontWeight: "bold",
-      marginLeft: 10,
-    },
-    movies: {
-      margin: 5,
-      width: "48%", //zmienić pozniej
-    },
-    series: {
-      margin: 5,
-      width: "48%", //zmienić pozniej
-    },
-  });
-
   const [load, SetLoad] = React.useState(true);
   const [visibility, SetVisibility] = React.useState("none");
 
@@ -64,6 +40,9 @@ export default function CollectionsScreen({ navigation }) {
 
   return (
     <ImageBackground source={photo} style={styles.menu}>
+      {load && (
+        <ActivityIndicator style={styles.load} color={"#F39B36"} size={100} />
+      )}
       <View style={{ display: visibility }}>
         <ScrollView>
           <View style={styles.border}>
@@ -78,19 +57,6 @@ export default function CollectionsScreen({ navigation }) {
           </View>
         </ScrollView>
       </View>
-      {load && (
-        <ActivityIndicator
-          style={{
-            position: "absolute",
-            left: "50%",
-            right: "50%",
-            top: "50%",
-            bottom: "50%",
-          }}
-          color={"#F39B36"}
-          size={100}
-        />
-      )}
     </ImageBackground>
   );
 }
