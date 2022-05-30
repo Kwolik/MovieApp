@@ -12,7 +12,7 @@ import MovieListSearch from "../component/MovieListSearch";
 import ActorListSearch from "../component/ActorListSearch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Feather from "react-native-vector-icons/Feather";
 import photo from "../assets/back.png";
 
 export default function SearchScreen({ navigation }) {
@@ -139,7 +139,7 @@ export default function SearchScreen({ navigation }) {
               }}
             >
               <MaterialCommunityIcons
-                name="movie-open"
+                name="movie-roll"
                 style={styles.icon}
                 color={value === "Movie" ? "#F39B36" : "#E1E1E1"}
               />
@@ -160,9 +160,9 @@ export default function SearchScreen({ navigation }) {
                 SetMovies([]);
               }}
             >
-              <Ionicons
-                name="ios-tv"
-                style={styles.icon2}
+              <Feather
+                name="tv"
+                style={styles.icon}
                 color={value === "TV Series" ? "#F39B36" : "#E1E1E1"}
               />
               <Text
@@ -182,8 +182,8 @@ export default function SearchScreen({ navigation }) {
                 SetMovies([]);
               }}
             >
-              <MaterialIcons
-                name="collections"
+              <Ionicons
+                name="albums"
                 style={styles.icon}
                 color={value === "Collection" ? "#F39B36" : "#E1E1E1"}
               />
@@ -206,7 +206,7 @@ export default function SearchScreen({ navigation }) {
             >
               <Ionicons
                 name="ios-people"
-                style={styles.icon2}
+                style={styles.icon}
                 color={value === "Actor" ? "#F39B36" : "#E1E1E1"}
               />
               <Text

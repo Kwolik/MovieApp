@@ -2,22 +2,22 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   menu: {
-    margin: 10,
+    margin: 6,
   },
   poster: {
-    width: 160,
-    height: 256,
+    width: 144,
+    height: 230,
     borderRadius: 10,
   },
   bottom: {
-    width: 160,
+    width: 144,
     justifyContent: "space-between",
     marginTop: 2,
   },
   title: {
     color: "#E1E1E1",
     marginRight: 2,
-    width: 160,
+    width: 144,
     fontWeight: "bold",
   },
   bot: {

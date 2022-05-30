@@ -19,15 +19,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   icon: {
-    margin: 2,
+    padding: 2,
     fontSize: 24,
-    marginTop: 5,
-  },
-  icon2: {
-    margin: 2,
-    marginTop: 4,
-    fontSize: 28,
-    alignItems: "center",
   },
   radioButton: {
     justifyContent: "center",

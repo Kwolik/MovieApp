@@ -30,8 +30,8 @@ export default function OneBase(props) {
         )}
         <View style={styles.bottom}>
           <Text style={styles.title}>
-            {props.title && props.title.length > 21
-              ? props.title.substring(0, 18) + "..."
+            {props.title && props.title.length > 20
+              ? props.title.substring(0, 16) + "..."
               : props.title}
           </Text>
           <View style={styles.bot}>

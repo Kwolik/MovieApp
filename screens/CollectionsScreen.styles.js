@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   border: {
+    marginTop: 6,
     margin: 10,
     flexDirection: "row",
   },
@@ -12,15 +13,28 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#F39B36",
     fontWeight: "bold",
-    marginLeft: 10,
+    marginRight: 10,
+  },
+  column: {
+    margin: 5,
+    marginBottom: 50,
   },
   movies: {
     margin: 5,
     width: "48%", //zmienić pozniej
+    flexDirection: "row",
+    justifyContent: "center",
   },
   series: {
     margin: 5,
     width: "48%", //zmienić pozniej
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  icon: {
+    fontSize: 28,
+    color: "#F39B36",
+    marginRight: 6,
   },
   load: {
     position: "absolute",

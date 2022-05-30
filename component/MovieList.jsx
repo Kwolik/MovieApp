@@ -5,22 +5,22 @@ import noposter from "../assets/noposter.png";
 export default function MovieList(props) {
   const styles = StyleSheet.create({
     menu: {
-      margin: 10,
+      margin: 6,
     },
     poster: {
-      width: 160,
-      height: 256,
+      width: 144, //144 140
+      height: 230, //230 225
       borderRadius: 10,
     },
     bottom: {
-      width: 160,
+      width: 144,
       justifyContent: "space-between",
       marginTop: 2,
     },
     title: {
       color: "#E1E1E1",
       marginRight: 2,
-      width: 160,
+      width: 144,
       fontWeight: "bold",
     },
     bot: {
@@ -115,8 +115,8 @@ export default function MovieList(props) {
         )}
         <View style={styles.bottom}>
           <Text style={styles.title}>
-            {props.title && props.title.length > 21
-              ? props.title.substring(0, 18) + "..."
+            {props.title && props.title.length > 20
+              ? props.title.substring(0, 16) + "..."
               : props.title}
           </Text>
           <View style={styles.bot}>

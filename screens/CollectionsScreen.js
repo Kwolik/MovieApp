@@ -11,6 +11,8 @@ import { ALLCOLLECTIONS } from "./Collections/CollectionMoviesList";
 import { ALLCOLLECTIONSERIES } from "./Collections/CollectionSeriesList";
 import CollectionMovies from "./Collections/CollectionMovies";
 import CollectionSeries from "./Collections/CollectionSeries";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Feather from "react-native-vector-icons/Feather";
 import photo from "../assets/back.png";
 
 export default function CollectionsScreen({ navigation }) {
@@ -40,22 +42,28 @@ export default function CollectionsScreen({ navigation }) {
 
   return (
     <ImageBackground source={photo} style={styles.menu}>
+      <View style={styles.border}>
+        <View style={styles.movies}>
+          <MaterialCommunityIcons name="movie-roll" style={styles.icon} />
+          <Text style={styles.name}>Movie</Text>
+        </View>
+        <View style={styles.series}>
+          <Feather name="tv" style={styles.icon} />
+          <Text style={styles.name}>TV Series</Text>
+        </View>
+      </View>
       {load && (
         <ActivityIndicator style={styles.load} color={"#F39B36"} size={100} />
       )}
       <View style={{ display: visibility }}>
-        <ScrollView>
-          <View style={styles.border}>
-            <View style={styles.movies}>
-              <Text style={styles.name}>Filmy</Text>
-              {collectionList}
-            </View>
-            <View style={styles.series}>
-              <Text style={styles.name}>Seriale</Text>
-              {seriesList}
-            </View>
-          </View>
-        </ScrollView>
+        <View style={styles.border}>
+          <ScrollView>
+            <View style={styles.column}>{collectionList}</View>
+          </ScrollView>
+          <ScrollView>
+            <View style={styles.column}>{seriesList}</View>
+          </ScrollView>
+        </View>
       </View>
     </ImageBackground>
   );
