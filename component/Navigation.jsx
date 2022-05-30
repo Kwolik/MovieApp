@@ -9,9 +9,7 @@ import CollectionDetails from "../screens/Home/CollectionDetails";
 import SearchScreen from "../screens/SearchScreen";
 import CollectionsScreen from "../screens/CollectionsScreen";
 import MyListScreen from "../screens/MyListScreen";
-import WatchList from "../screens/MyList/WatchList";
-import Favorites from "../screens/MyList/Favorites";
-import WaitingList from "../screens/MyList/WaitingList";
+import CategoryList from "../screens/MyList/CategoryList";
 import ProfileScreen from "../screens/ProfileScreen";
 import EditProfile from "../screens/Profile/EditProfile";
 
@@ -68,9 +66,7 @@ export const MyListStackScreen = () => (
       name={"MyListSeriesDetails"}
       component={SeriesDetails}
     />
-    <MyListStack.Screen name={"Watchlist"} component={WatchList} />
-    <MyListStack.Screen name={"Favorites"} component={Favorites} />
-    <MyListStack.Screen name={"WaitingList"} component={WaitingList} />
+    <MyListStack.Screen name={"CategoryList"} component={CategoryList} />
   </MyListStack.Navigator>
 );
 

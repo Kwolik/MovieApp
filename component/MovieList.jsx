@@ -39,6 +39,10 @@ export default function MovieList(props) {
   });
 
   function Route() {
+    console.log(props.type);
+    console.log(props.screen);
+    console.log(props.id);
+
     if (props.type === "Movie" && props.screen === 0) {
       if (props.back === 1) props.navigation.goBack();
       props.navigation.navigate("HomeMovieDetails", {

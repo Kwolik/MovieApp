@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   black: {
-    marginBottom: 100,
-    marginTop: 10,
+    margin: 2,
+    marginBottom: 90,
   },
   load: {
     position: "absolute",

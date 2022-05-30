@@ -7,10 +7,10 @@ import {
   ActivityIndicator,
 } from "react-native";
 import styles from "./CollectionsScreen.styles";
-import { ALLCOLLECTIONS } from "./collections/CollectionMoviesList";
-import { ALLCOLLECTIONSERIES } from "./collections/CollectionSeriesList";
-import CollectionMovies from "./collections/CollectionMovies";
-import CollectionSeries from "./collections/CollectionSeries";
+import { ALLCOLLECTIONS } from "./Collections/CollectionMoviesList";
+import { ALLCOLLECTIONSERIES } from "./Collections/CollectionSeriesList";
+import CollectionMovies from "./Collections/CollectionMovies";
+import CollectionSeries from "./Collections/CollectionSeries";
 import photo from "../assets/back.png";
 
 export default function CollectionsScreen({ navigation }) {

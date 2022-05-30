@@ -7,12 +7,7 @@ import {
 } from "react-native";
 import styles from "./MyListScreen.styles";
 import MenuMyList from "./MyList/MenuMyList";
-import MovieBaseList from "./MyList/MovieBaseList";
-import SeriesBaseList from "./MyList/SeriesBaseList";
-import MovieFavoritesList from "./MyList/MovieFavoritesList";
-import SeriesFavoritesList from "./MyList/SeriesFavoritesList";
-import MovieWaitingList from "./MyList/MovieWaitingList";
-import SeriesWaitingList from "./MyList/SeriesWaitingList";
+import MyList from "./MyList/MyList";
 import photo from "../assets/back.png";
 
 export default function MyListScreen({ navigation }) {
@@ -23,7 +18,7 @@ export default function MyListScreen({ navigation }) {
     setTimeout(() => {
       SetLoad(false);
       SetVisibility("flex");
-    }, 950);
+    }, 700);
   }
 
   componentDidMount();
@@ -37,12 +32,48 @@ export default function MyListScreen({ navigation }) {
         <View>
           <MenuMyList navigation={navigation} />
           <ScrollView style={styles.black}>
-            <MovieBaseList navigation={navigation} />
-            <SeriesBaseList navigation={navigation} />
-            <MovieFavoritesList navigation={navigation} />
-            <SeriesFavoritesList navigation={navigation} />
-            <MovieWaitingList navigation={navigation} />
-            <SeriesWaitingList navigation={navigation} />
+            <MyList
+              navigation={navigation}
+              text={"Watched Movies"}
+              list={"Watchlist"}
+              type={"Movie"}
+              value={0}
+            />
+            <MyList
+              navigation={navigation}
+              text={"Watched TV Series"}
+              list={"Watchlist"}
+              type={"Series"}
+              value={1}
+            />
+            <MyList
+              navigation={navigation}
+              text={"Favorite Movies"}
+              list={"Favorites"}
+              type={"Movie"}
+              value={0}
+            />
+            <MyList
+              navigation={navigation}
+              text={"Favorites TV Series"}
+              list={"Favorites"}
+              type={"Series"}
+              value={1}
+            />
+            <MyList
+              navigation={navigation}
+              text={"Waiting list Movies"}
+              list={"Waitinglist"}
+              type={"Movie"}
+              value={0}
+            />
+            <MyList
+              navigation={navigation}
+              text={"Waiting list TV Series"}
+              list={"Waitinglist"}
+              type={"Series"}
+              value={1}
+            />
           </ScrollView>
         </View>
       </View>
