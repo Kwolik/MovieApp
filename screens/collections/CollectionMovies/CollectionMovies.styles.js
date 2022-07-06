@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   menu: {
-    margin: 10,
+    marginBottom: 10,
   },
   poster: {
     width: 160,

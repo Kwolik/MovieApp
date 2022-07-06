@@ -43,11 +43,11 @@ export default function CollectionsScreen({ navigation }) {
   return (
     <ImageBackground source={photo} style={styles.menu}>
       <View style={styles.border}>
-        <View style={styles.movies}>
+        <View style={styles.info}>
           <MaterialCommunityIcons name="movie-roll" style={styles.icon} />
           <Text style={styles.name}>Movie</Text>
         </View>
-        <View style={styles.series}>
+        <View style={styles.info}>
           <Feather name="tv" style={styles.icon} />
           <Text style={styles.name}>TV Series</Text>
         </View>

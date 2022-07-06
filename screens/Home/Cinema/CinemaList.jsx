@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text } from "react-native";
 import styles from "./CinemaList.styles";
-import noposter from "../../../assets/noposter.png"; //nie wyswietla sie
+import noposter from "../../../assets/noposter.png";
 
 export default function CinemaList(props) {
   return (
@@ -13,7 +13,7 @@ export default function CinemaList(props) {
           alt="poster"
         />
       ) : (
-        <Image style={styles.poster} source={noposter} alt="poster" />
+        <Image style={{ width: props.wtd, height: 242 }} source={noposter} alt="poster" />
       )}
       <View style={styles.bot}>
         <Text style={styles.title}>{props.title}</Text>

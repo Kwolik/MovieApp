@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   border: {
-    marginTop: 6,
     margin: 10,
     flexDirection: "row",
   },
@@ -16,18 +15,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   column: {
-    margin: 5,
-    marginBottom: 50,
+    marginBottom: 40,
+    flex: 2,
   },
-  movies: {
-    margin: 5,
-    width: "48%", //zmienić pozniej
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  series: {
-    margin: 5,
-    width: "48%", //zmienić pozniej
+  info: {
+    flex: 2,
     flexDirection: "row",
     justifyContent: "center",
   },
