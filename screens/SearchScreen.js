@@ -205,7 +205,7 @@ export default function SearchScreen({ navigation }) {
               }}
             >
               <Ionicons
-                name="ios-people"
+                name="people"
                 style={styles.icon}
                 color={value === "Actor" ? "#F39B36" : "#E1E1E1"}
               />

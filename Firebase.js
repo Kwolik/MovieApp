@@ -1,14 +1,15 @@
-import firebase from "firebase";
-import Constants from "expo-constants";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import database from 'firebase/compat/database'
+
 const firebaseConfig = {
-  apiKey: Constants.manifest.extra.API_KEY,
-  authDomain: Constants.manifest.extra.AUTH_DOMAIN,
-  databaseURL: Constants.manifest.extra.DATABASE_URL,
-  projectId: Constants.manifest.extra.PROJECT_ID,
-  storageBucket: Constants.manifest.extra.STORAGE_BUCKET,
-  messagingSenderId: Constants.manifest.extra.MESSAGE_SENDER_ID,
-  appId: Constants.manifest.extra.APP_ID,
-  measurementId: Constants.manifest.extra.MEASUREMENT_ID,
+  apiKey: "AIzaSyBE-NVIbafFqDzy-ne0pKqHfbHFQV90jYE",
+  authDomain: "movie-486d3.firebaseapp.com",
+  databaseURL: "https://movie-486d3-default-rtdb.firebaseio.com",
+  projectId: "movie-486d3",
+  storageBucket: "movie-4dd3a.appspot.com",
+  messagingSenderId: "262833312014",
+  appId: "1:262833312014:android:e75606b5d16e61f11f475f",
 };
 let Firebase = firebase.initializeApp(firebaseConfig);
 

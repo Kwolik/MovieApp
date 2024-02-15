@@ -114,19 +114,24 @@ export default function App() {
     <mainContext.Provider value={mainC}>
       <NavigationContainer stickyNav={true}>
         {userLogged == false ? (
-          <AppStack.Navigator headerMode={"none"}>
+          <AppStack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
             <AppStack.Screen name="Menu" component={MenuScreen} />
             <AppStack.Screen name="Login" component={LoginScreen} />
             <AppStack.Screen name="Signup" component={SignUpScreen} />
           </AppStack.Navigator>
         ) : (
           <Tab.Navigator
-            tabBarOptions={{
-              activeTintColor: "#F39B36",
-              activeBackgroundColor: "black",
-              inactiveBackgroundColor: "black",
-              inactiveTintColor: "#E1E1E1",
-              style: {
+            screenOptions={{
+              headerShown: false,
+              tabBarActiveTintColor: "#F39B36",
+              tabBarInactiveTintColor: "#E1E1E1",
+              tabBarActiveBackgroundColor: "black",
+              tabBarInactiveBackgroundColor: "black",
+              tabBarStyle: {
                 borderTopColor: "black",
               },
             }}
@@ -161,7 +166,7 @@ export default function App() {
               options={{
                 tabBarLabel: "Collections",
                 tabBarIcon: ({ color }) => (
-                  <Ionicons name="ios-grid" color={color} size={28} />
+                  <Ionicons name="grid" color={color} size={28} />
                 ),
               }}
             />
@@ -183,7 +188,7 @@ export default function App() {
               options={{
                 tabBarLabel: "Profile",
                 tabBarIcon: ({ color }) => (
-                  <Ionicons name="md-people" color={color} size={32} />
+                  <FontAwesome name="gear" color={color} size={32} />
                 ),
               }}
             />
